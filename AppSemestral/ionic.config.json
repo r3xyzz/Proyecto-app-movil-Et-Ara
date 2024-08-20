@@ -1,0 +1,7 @@
+{
+  "name": "AppSemestral",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
