@@ -13,7 +13,7 @@ export class LoginPage implements OnInit {
 
   formularioLogin: FormGroup;
 
-  constructor(public fb: FormBuilder, private route:Router) { 
+  constructor(public fb: FormBuilder, private router:Router) { 
     this.formularioLogin = this.fb.group({
       'nombre': new FormControl("", Validators.required),
       'password': new FormControl("", Validators.required)
@@ -26,7 +26,11 @@ export class LoginPage implements OnInit {
     
     // Aquí puedes agregar la lógica para manejar el login
     console.log('Ingresando con', this.formularioLogin.value);
-   this.route.navigate(["/registro"])
+   this.router.navigate(["/registro"])
+  }
+
+  redirigir(){
+    this.router.navigate(["/registro"]);
   }
 
 
