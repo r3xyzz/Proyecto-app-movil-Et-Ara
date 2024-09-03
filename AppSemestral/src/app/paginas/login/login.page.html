@@ -10,18 +10,18 @@
       <ion-card-title>Login</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="formularioLogin">
+      <form>
         <ion-item>
           <ion-label position="floating">Nombre</ion-label>
-          <ion-input formControlName="nombre"></ion-input>
+          <ion-input type="text" [(ngModel)]="nombre" name="nombre" placeholder="Ingresa el nombre"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input formControlName="password" type="password"></ion-input>
+          <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Ingresa la contraseña"></ion-input>
         </ion-item>
       </form>
       
-      <ion-button (click)="redirigir()">
+      <ion-button (click)="ingresar()">
         Ingresar
       </ion-button>
     </ion-card-content>

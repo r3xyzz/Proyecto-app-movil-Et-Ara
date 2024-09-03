@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 
 
 
@@ -10,23 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  nombre : string =""
+  password : string = ""
 
-  formularioLogin: FormGroup;
-
-  constructor(public fb: FormBuilder, private router:Router) { 
-    this.formularioLogin = this.fb.group({
-      'nombre': new FormControl("", Validators.required),
-      'password': new FormControl("", Validators.required)
-    });
-  }
+  constructor(private router:Router) { }
 
   ngOnInit() { }
 
   ingresar() {
-    
-    // Aquí puedes agregar la lógica para manejar el login
-    console.log('Ingresando con', this.formularioLogin.value);
-   this.router.navigate(["/registro"])
+    if (this.nombre==="" || this.password===""){
+
+    }
+    else{
+      this.router.navigate(["/home"])
+    }
   }
 
   redirigir(){
