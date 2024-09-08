@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
 })
-export class PerfilPage implements OnInit {
+export class PerfilPage {
+  currentDate: string;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    const today = new Date();
+    this.currentDate = today.toLocaleDateString();
   }
-
 }
