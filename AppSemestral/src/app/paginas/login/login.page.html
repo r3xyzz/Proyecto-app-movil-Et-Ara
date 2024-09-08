@@ -1,37 +1,39 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
 
-<ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form>
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input type="text" [(ngModel)]="nombre" name="nombre" placeholder="Ingresa el nombre"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Ingresa la contraseña"></ion-input>
-        </ion-item>
-      </form>
-      
-      <ion-button (click)="ingresar()">
-        Ingresar
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+  <div class="header">
+    <ion-title class="titulo">¡Bienvenido!</ion-title>
+    <p class="subtitulo">Inicia sesión para acceder a tu cuenta</p>
+  </div>
+
+
+  <form>
+    <div class="ion-padding">
+
+      <!-- input nombrecito -->
+      <ion-item>
+        <ion-input placeholder="Nombre" class="input"></ion-input>
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-item>
+
+      <!-- input contraseñita :-p -->
+      <ion-item>
+        <ion-input placeholder="Contraseña" class="input"></ion-input>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </ion-item>
+
+      <!-- anchor Registración -->
+      <div class="registroLink">
+        <p>¿Eres nuevo? <a [routerLink]="['/registro']">Registrate ahora</a></p>
+      </div>
+    </div>
+
+  </form>
 </ion-content>
 
 <ion-footer>
+
   <ion-toolbar color="primary">
-    <ion-buttons slot="end">
-      <ion-button [routerLink]="['/registro']">Registrarse</ion-button>
-    </ion-buttons>
+    HABITLY
   </ion-toolbar>
+
 </ion-footer>

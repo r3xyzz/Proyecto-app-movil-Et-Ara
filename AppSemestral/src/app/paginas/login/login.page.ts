@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
 
   ingresar() {
     if (this.nombre==="" || this.password===""){
-
+      
     }
     else{
       this.router.navigate(["/home"])

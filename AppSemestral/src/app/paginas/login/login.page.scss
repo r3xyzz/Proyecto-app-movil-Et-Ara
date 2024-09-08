@@ -1,0 +1,35 @@
+.input{
+    font-size: 300;
+
+}
+
+ion-item{
+   
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.header{
+    margin-top: 100px;
+    margin-bottom: 80px;
+    text-align:  center;
+    
+    .subtitulo{
+        color: gray;
+        font-size: 0.9rem;
+    }
+
+    .titulo{
+        font-size: 2rem;
+    }
+
+}
+
+.registroLink{
+    display: flex;
+    justify-content: flex-end;
+    a{
+        font-weight: 400;
+    }
+}
+
