@@ -26,10 +26,14 @@ ion-item{
 }
 
 .registroLink{
-    display: flex;
     justify-content: flex-end;
     a{
         font-weight: 400;
     }
+}
+
+ion-button{
+    margin-top: 50px;
+
 }
 

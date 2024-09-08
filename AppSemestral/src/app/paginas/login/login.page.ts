@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
 
 
 
@@ -12,22 +13,40 @@ export class LoginPage implements OnInit {
   nombre : string =""
   password : string = ""
 
-  constructor(private router:Router) { }
+  constructor(public mensaje:ToastController,public alerta:AlertController,private router:Router) { }
 
-  ngOnInit() { }
+  
+
+  async MensajeError() {
+    const alert = await this.alerta.create({
+      header: 'Error de inicio de session ',
+      subHeader: 'Contraseña o usuario erroneo',
+      message: 'Error al iniciar sesion en la cuenta',
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+    }
+
+  async MensajeCorrecto() {
+    const toast = await this.mensaje.create({
+      message: 'Inicio de session exitoso ',
+      duration: 2000
+    });
+    toast.present();
+  }
+
 
   ingresar() {
     if (this.nombre==="" || this.password===""){
-      
+      console.log("ERROR NOMBRE Y CONTRASEÑA: VACIOS")
+      this.MensajeError()
     }
     else{
+      console.log("Inicio de Sesión Exitoso")
+      this.MensajeCorrecto()
       this.router.navigate(["/home"])
     }
   }
 
-  redirigir(){
-    this.router.navigate(["/registro"]);
-  }
-
-
+  ngOnInit() { }
 }
