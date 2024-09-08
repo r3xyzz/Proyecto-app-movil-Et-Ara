@@ -19,9 +19,9 @@ export class LoginPage implements OnInit {
 
   async MensajeError() {
     const alert = await this.alerta.create({
-      header: 'Error de inicio de session ',
-      subHeader: 'Contraseña o usuario erroneo',
-      message: 'Error al iniciar sesion en la cuenta',
+      header: 'ERROR',
+      subHeader: 'Nombre de Usuario o Contraseña vacíos',
+      message: 'Por favor, ingrese su nombre o contraseña',
       buttons: ['Aceptar']
     });
     await alert.present();
