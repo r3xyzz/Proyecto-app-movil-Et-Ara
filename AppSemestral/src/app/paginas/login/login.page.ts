@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
 
   async MensajeCorrecto() {
     const toast = await this.mensaje.create({
-      message: 'Inicio de session exitoso ',
+      message: `¡Un gusto verte, ${this.nombre}!`,
       duration: 2000
     });
     toast.present();

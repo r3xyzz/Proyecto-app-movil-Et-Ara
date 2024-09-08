@@ -6,18 +6,17 @@
   </div>
 
 
-  <form>
     <div class="ion-padding">
 
       <!-- input nombrecito -->
       <ion-item>
-        <ion-input placeholder="Nombre" class="input"></ion-input>
+        <ion-input placeholder="Nombre" class="input" [(ngModel)]="nombre"></ion-input>
         <ion-icon name="person-outline"></ion-icon>
       </ion-item>
 
       <!-- input contraseñita :-p -->
       <ion-item>
-        <ion-input placeholder="Contraseña" class="input"></ion-input>
+        <ion-input placeholder="Contraseña" class="input" [(ngModel)]="password"></ion-input>
         <ion-icon name="lock-closed-outline"></ion-icon>
       </ion-item>
 
@@ -31,7 +30,7 @@
       </ion-button>
     </div>
 
-  </form>
+
   
 </ion-content>
 
