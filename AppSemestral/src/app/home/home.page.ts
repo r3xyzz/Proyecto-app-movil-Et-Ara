@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { AgregaHabitosPage } from '../paginas/agrega-habitos/agrega-habitos.page';
 
 @Component({
   selector: 'app-home',
@@ -7,35 +9,35 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(public modalControlador:ModalController) {}
 
-  listaHaceres = [{
-    nomItem: 'Codear',
-    fecVencItem: '01-10-24',
-    prioridadItem: 'alto',
-    categoriaItem: 'Trabajo'
-  },
-  {
-    nomItem: 'Diseño',
-    fecVencItem: '10-28-24',
-    prioridadItem: 'bajo',
-    categoriaItem: 'Trabajo'
-  },
-  {
-    nomItem: 'Compras',
-    fecVencItem: '10-30-24',
-    prioridadItem: 'medio',
-    categoriaItem: 'Personal'
-  },
-  {
-    nomItem: 'Ejercicios',
-    fecVencItem: '10-25-24',
-    prioridadItem: 'alto',
-    categoriaItem: 'Personal'
-  }
-  ]
+  listaHaceres: {nombreItem: string,
+                fechaItem: string,
+                prioridadItem: string,
+                categoriaItem: string}[] = [];
 
   hoy: number = Date.now()
+
+
+
+  async agregaHabito(){
+    const modal = await this.modalControlador.create({
+      component: AgregaHabitosPage
+    })
+
+    modal.onDidDismiss().then(nuevoObjHabito => {
+      console.log(nuevoObjHabito.data);
+      this.listaHaceres.push(nuevoObjHabito.data)
+      console.log(this.listaHaceres);
+    })
+    return await modal.present()
+  }
+
+
+
+  eliminar(index:number){
+    this.listaHaceres.splice(index,1)
+  }
 }
 
 

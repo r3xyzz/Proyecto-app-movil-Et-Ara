@@ -1,13 +1,67 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>agregaHabitos</ion-title>
+
+    <ion-title>Agrega un nuevo Hábito</ion-title>
+    <ion-icon name="close" slot="end" size="large" class="ion-padding" (click)="quitar()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">agregaHabitos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <ion-card>
+
+    <ion-item>
+
+      <ion-textarea [(ngModel)]="nombreHabito" placeholder="Escribe tu Hábito aquí"></ion-textarea>
+
+    </ion-item>
+
+    <ion-item>
+
+      <ion-select label="Prioridad" [(ngModel)]="prioridadHabito">
+
+        <ion-select-option value="bajo">Bajo</ion-select-option>
+        <ion-select-option value="medio">Medio</ion-select-option>
+        <ion-select-option value="alto">Alto</ion-select-option>
+
+      </ion-select>
+
+    </ion-item>
+
+    <ion-item>
+
+      <ion-icon name="calendar-outline" slot="start"></ion-icon>
+      <ion-label>Fecha de Vencimiento</ion-label>
+
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="datetime" [(ngModel)]="fechaHabito"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+
+    </ion-item>
+
+    <ion-item>
+
+      <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+      <ion-label>Categoría</ion-label>
+      <span>{{categoriaHabito}}</span>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-chip *ngFor="let categoria of categorias; let i = index" (click)="categoriaSeleccionada(i)">
+        <ion-label>{{categoria}}</ion-label>
+      </ion-chip>
+    </ion-item>
+
+    <ion-button class="ion-margin" expand="block" (click)="agregaHabito()">Agrega Hábito</ion-button>
+
+  </ion-card>
+
+
+
+
 </ion-content>
