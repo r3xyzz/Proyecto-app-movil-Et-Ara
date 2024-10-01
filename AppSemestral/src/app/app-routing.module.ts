@@ -28,7 +28,15 @@ const routes: Routes = [
   {
     path: 'agrega-habitos',
     loadChildren: () => import('./paginas/agrega-habitos/agrega-habitos.module').then( m => m.AgregaHabitosPageModule)
+  },  {
+    path: 'historial-habitos',
+    loadChildren: () => import('./paginas/historial-habitos/historial-habitos.module').then( m => m.HistorialHabitosPageModule)
   },
+  {
+    path: 'agregar-habito-voz',
+    loadChildren: () => import('./paginas/agregar-habito-voz/agregar-habito-voz.module').then( m => m.AgregarHabitoVozPageModule)
+  },
+
 
 ];
 
