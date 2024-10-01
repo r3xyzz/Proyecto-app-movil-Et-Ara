@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@ionic/storage": "^4.0.0"
+  }
+}

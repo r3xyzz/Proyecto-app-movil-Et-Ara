@@ -44,11 +44,14 @@ export class LoginPage implements OnInit {
     }
     else{
       console.log("Inicio de Sesión Exitoso")
+      this.storage.set("nombre",this.nombre)
       this.storage.set("SessionID", true)
       this.MensajeCorrecto()
       this.router.navigate(["/home"])
     }
   }
 
-  ngOnInit() { }
+  async ngOnInit() {
+    await this.storage.create();
+   }
 }
