@@ -40,6 +40,15 @@ export class AgregaHabitosPage implements OnInit {
                           prioridadItem:this.prioridadHabito,
                           categoriaItem:this.categoriaHabito})
 
+    console.log(this.objetoHabito);
+    console.log(Object.values(this.objetoHabito));
+
+    if(this.objetoHabito){
+
+    }else{
+
+    }
+
     this.quitar()
 
   }
