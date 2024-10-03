@@ -1,6 +1,7 @@
 import { Component, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { SpeechRecognition } from '@awesome-cordova-plugins/speech-recognition/ngx';
 import { createAnimation, Animation } from '@ionic/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-agregar-habito-voz',
@@ -8,6 +9,24 @@ import { createAnimation, Animation } from '@ionic/core';
   styleUrls: ['./agregar-habito-voz.page.scss'],
 })
 export class AgregarHabitoVozPage implements AfterViewInit {
+  //VARIABLES PARA EL ALMACENADO DE HABITO
+  categorias = ['Trabajo','Personal','Casa']
+
+  nombreHabito : string = ""
+  fechaHabito : string = new Date().toISOString();
+  prioridadHabito : string = ""
+  categoriaHabito : string = ""
+
+  objetoHabito : { nombreItem: string, fechaItem: string, prioridadItem: string, categoriaItem: string } = {
+    nombreItem: '', 
+    fechaItem: '', 
+    prioridadItem: '', 
+    categoriaItem: ''
+  };
+
+  constructor(public modalControlador:ModalController) { }
+
+  //ANIMACIÓN DE WAVES
   @ViewChildren('line') waveLines!: QueryList<any>; // Acceder a las líneas de la wave
 
   waveLinesArray: Animation[] = [];
@@ -39,9 +58,28 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     this.waveLinesArray.forEach((anim) => anim.play());
   }
 
+
+  //LÓGICA DE RECONOCIMIENTO DE VOZ
+
   startListening() {
     console.log('Empezar a transcribir...');
     // Lógica de reconocimiento de voz
+  }
+
+  // LÓGICA DE ALMACENAMIENTO DE OBJETO EN VARIABLE
+  async quitar(){
+    await this.modalControlador.dismiss(this.objetoHabito)
+  }
+
+  agregaHabitoVoz(){
+    if(this.objetoHabito){
+
+    }else{
+
+    }
+
+    this.quitar()
+
   }
 
 }

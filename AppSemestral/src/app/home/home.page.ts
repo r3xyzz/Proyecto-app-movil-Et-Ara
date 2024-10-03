@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AgregaHabitosPage } from '../paginas/agrega-habitos/agrega-habitos.page';
+import { AgregarHabitoVozPage } from '../paginas/agregar-habito-voz/agregar-habito-voz.page';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,20 @@ export class HomePage {
     modal.onDidDismiss().then(nuevoObjHabito => {
       console.log(nuevoObjHabito.data);
       this.listaHaceres.push(nuevoObjHabito.data)
+      console.log(this.listaHaceres);
+    })
+    return await modal.present()
+  }
+
+
+  async agregaHabitoVoz(){
+    const modal = await this.modalControlador.create({
+      component: AgregarHabitoVozPage
+    })
+
+    modal.onDidDismiss().then(nuevoObjHabito => {
+      console.log(nuevoObjHabito.data);
+      //this.listaHaceres.push(nuevoObjHabito.data)
       console.log(this.listaHaceres);
     })
     return await modal.present()

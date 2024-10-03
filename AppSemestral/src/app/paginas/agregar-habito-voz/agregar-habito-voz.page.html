@@ -2,7 +2,7 @@
   <ion-toolbar>
 
     <ion-title>Transcripción de nuevo Hábito</ion-title>
-    <ion-icon name="close" slot="end" size="large" class="ion-padding"></ion-icon>
+    <ion-icon name="close" slot="end" size="large" class="ion-padding" (click)="quitar()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -21,22 +21,22 @@
   <div class="ion-padding">
     <ion-item>
       <ion-label position="stacked">Nombre Hábito:</ion-label>
-      <ion-textarea placeholder="Se mostrará la transcripción aquí..."></ion-textarea>
+      <ion-textarea placeholder="EJ: Ejercicios" readonly></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Prioridad:</ion-label>
-      <ion-textarea placeholder="Se mostrará la transcripción aquí..."></ion-textarea>
+      <ion-textarea placeholder="EJ: Alta/Media/Baja" readonly></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Fecha de Vencimiento:</ion-label>
-      <ion-textarea placeholder="Se mostrará la transcripción aquí..."></ion-textarea>
+      <ion-textarea placeholder="EJ: 22 de Octubre, 22:30" readonly></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Categoría:</ion-label>
-      <ion-textarea placeholder="Se mostrará la transcripción aquí..."></ion-textarea>
+      <ion-textarea placeholder="EJ: Trabajo/Personal/Casa" readonly></ion-textarea>
     </ion-item>
   </div>
 
