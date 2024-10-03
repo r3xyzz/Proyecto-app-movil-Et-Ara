@@ -1,13 +1,42 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>agregar-habito-voz</ion-title>
+
+    <ion-title>Transcripción de nuevo Hábito</ion-title>
+    <ion-icon name="close" slot="end" size="large" class="ion-padding"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">agregar-habito-voz</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  
+  <div class="wave-container">
+    <!-- Crear líneas de la "wave" dinámicamente usando *ngFor -->
+    <div class="wave-line" *ngFor="let line of waveLinesData" #line></div>
+  </div>
+
+  <ion-button expand="block" color="primary">
+    <ion-icon name="mic-outline"></ion-icon>
+    ¡Empieza a Hablar!
+  </ion-button>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Nombre Hábito:</ion-label>
+      <ion-textarea readonly>'Se mostrará la transcripción aquí...'</ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Prioridad:</ion-label>
+      <ion-textarea readonly>Se mostrará la transcripción aquí...'</ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha de Vencimiento:</ion-label>
+      <ion-textarea readonly>'Se mostrará la transcripción aquí...'</ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Categoría:</ion-label>
+      <ion-textarea readonly>'Se mostrará la transcripción aquí...'</ion-textarea>
+    </ion-item>
+  </ion-list>
 </ion-content>
