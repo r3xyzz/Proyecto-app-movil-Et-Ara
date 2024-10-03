@@ -12,7 +12,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
   waveLinesArray: Animation[] = [];
 
-  waveLinesData: number[] = Array.from({ length: 36 }, (_, i) => i + 1);
+  waveLinesData: number[] = Array.from({ length: 33 }, (_, i) => i + 1);
 
   ngAfterViewInit() {
     this.animateWave();
