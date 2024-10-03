@@ -1,21 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-
-    <!-- TÍTULO -->
-    <ion-item lines="none">
-      <ion-label style="font-weight: 800;font-size: 2em;">
-        Hoy
-        <p style="font-weight: 400;">{{hoy | date:'fullDate' }}</p>
-      </ion-label>
-    </ion-item>
-
-    <!-- BOTONCITO MENU -->
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-
-  </ion-toolbar>
-</ion-header>
+<app-header [titulo]="'Hoy'"></app-header>
 
 <ion-content [fullscreen]="true">
 

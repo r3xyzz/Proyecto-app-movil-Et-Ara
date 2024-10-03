@@ -17,9 +17,6 @@ export class HomePage {
                 prioridadItem: string,
                 categoriaItem: string}[] = [];
 
-  hoy: number = Date.now()
-
-
 
   async agregaHabito(){
     const modal = await this.modalControlador.create({

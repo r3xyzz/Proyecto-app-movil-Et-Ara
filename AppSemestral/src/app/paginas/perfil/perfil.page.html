@@ -1,28 +1,9 @@
 <!-- Mene desplegable reutilizado-->
-<ion-menu contentId="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menú</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <!-- Contenido del menu -->
-    Este es el contenido del menú.
-  </ion-content>
-</ion-menu>
+<app-header [titulo]="'Perfil'"></app-header>
 
 <!-- Contenido principal -->
-<div class="ion-page" id="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-content class="ion-padding">
+
     <!-- Imagen de perfil y nombre -->
     <ion-item>
       <ion-avatar slot="start">
@@ -58,4 +39,4 @@
       <ion-label>Día: 30 de julio</ion-label>
     </ion-item>
   </ion-content>
-</div>
+
