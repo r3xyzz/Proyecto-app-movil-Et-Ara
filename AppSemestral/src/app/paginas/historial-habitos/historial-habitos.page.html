@@ -1,13 +1,55 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>historial-habitos</ion-title>
+
+    <!-- TÍTULO -->
+    <ion-item lines="none">
+      <ion-label style="font-weight: 800;font-size: 2em;">
+        Historial
+        <p style="font-weight: 400;">{{hoy | date:'fullDate' }}</p>
+      </ion-label>
+    </ion-item>
+
+    <!-- BOTONCITO MENU -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">historial-habitos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+
+  <ion-card class="ion-margin">
+    <ion-card-header>
+
+      <ion-card-subtitle>
+
+      </ion-card-subtitle>
+
+      <ion-item>
+        <ion-icon></ion-icon>
+        <ion-icon></ion-icon>
+        <ion-icon ></ion-icon>
+        <ion-label></ion-label>
+      </ion-item>
+
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-label>Este hábito...</ion-label>
+    </ion-card-content>
+
+    <ion-row>
+
+      <!-- AQUÍ PONGO SI ES QUE FUE ELIMINADO, SU FECHA DE VENC PASÓ O SI ES QUE FUE COMPLETADO -->
+      <ion-item>
+        <ion-icon name="checkmark-outline"></ion-icon>
+        <p>Completado</p>
+      </ion-item>
+
+
+    </ion-row>
+  </ion-card>
+
 </ion-content>

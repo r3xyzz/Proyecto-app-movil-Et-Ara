@@ -6,8 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./historial-habitos.page.scss'],
 })
 export class HistorialHabitosPage implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  listaHaceres: {nombreItem: string,
+                fechaItem: string,
+                prioridadItem: string,
+                categoriaItem: string}[] = [];
+
+  hoy: number = Date.now()
 
   ngOnInit() {
   }
