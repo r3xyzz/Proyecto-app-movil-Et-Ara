@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "453591658121",
+    "project_id": "ara-et-prog-movil",
+    "storage_bucket": "ara-et-prog-movil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453591658121:android:1c1e41205c57ec8c8f6058",
+        "android_client_info": {
+          "package_name": "Prog_movil05.EtAra"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWg347KKeGdHil0ApvBlkSqDM3wJdk43Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
