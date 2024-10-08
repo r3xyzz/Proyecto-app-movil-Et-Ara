@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { FirebaseLoginService } from 'src/app/servicios/firebase-login.service';
 
 
 
@@ -14,7 +15,7 @@ export class LoginPage implements OnInit {
   nombre : string =""
   password : string = ""
 
-  constructor(public mensaje:ToastController,public alerta:AlertController,private router:Router, private storage: Storage) { }
+  constructor(public mensaje:ToastController,public alerta:AlertController,private router:Router, private storage: Storage, private access:FirebaseLoginService) { }
 
   
 
@@ -43,13 +44,16 @@ export class LoginPage implements OnInit {
       this.MensajeError()
     }
     else{
-      console.log("Inicio de Sesión Exitoso")
-      this.storage.set("nombre",this.nombre)
-      this.storage.set("SessionID", true)
-      this.MensajeCorrecto()
-      this.router.navigate(["/home"])
-    }
+      this.access.login(this.nombre,this.password).then(()=>{
+        console.log("Inicio de Sesión Exitoso")
+        this.access.login(this.nombre,this.password)
+        this.storage.set("nombre",this.nombre)
+        this.storage.set("SessionID", true)
+        this.MensajeCorrecto()
+        this.router.navigate(["/home"])
+    })
   }
+}
 
   async ngOnInit() {
     await this.storage.create();
