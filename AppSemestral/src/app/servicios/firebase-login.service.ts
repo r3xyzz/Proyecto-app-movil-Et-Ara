@@ -17,5 +17,9 @@ export class FirebaseLoginService {
       this.router.navigate(['/login']);
     });
   }
-  
+
+  async create (email:string,password:string){
+    const userCredential = await this.afAuth.createUserWithEmailAndPassword(email,password);
+    return userCredential;
+  }
 }
