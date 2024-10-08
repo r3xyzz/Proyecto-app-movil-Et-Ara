@@ -51,9 +51,13 @@ export class LoginPage implements OnInit {
         this.storage.set("SessionID", true)
         this.MensajeCorrecto()
         this.router.navigate(["/home"])
-    })
+
+       //DEPENDIENDO DEL ERROR, SE DEBERÁ RECIBIR DE PARAMETRO EN EL MÉTODO "MensajeError()" UNA CADENA DE TEXTO QUE INDIQUE EL ERROR 
+      }).catch(()=>{
+        this.MensajeError()
+      })
+    }
   }
-}
 
   async ngOnInit() {
     await this.storage.create();
