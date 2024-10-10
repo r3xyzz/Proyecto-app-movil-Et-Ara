@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private apiURL = "https://cors-anywhere.herokuapp.com/https://zenquotes.io/api/quotes/"
+  private apiURL = "https://zenquotes.io/api/quotes/"
 
   constructor(private http:HttpClient) { }
 
