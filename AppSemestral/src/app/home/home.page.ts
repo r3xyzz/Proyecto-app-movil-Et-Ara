@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AgregaHabitosPage } from '../paginas/agrega-habitos/agrega-habitos.page';
 import { AgregarHabitoVozPage } from '../paginas/agregar-habito-voz/agregar-habito-voz.page';
+
+import {ApiService} from 'src/app/servicios/api.service'
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
-  constructor(public modalControlador:ModalController) {}
+  constructor(public modalControlador:ModalController, private apiservice : ApiService) {}
 
   listaHaceres: {nombreItem: string,
                 fechaItem: string,
@@ -49,6 +51,28 @@ export class HomePage {
 
   eliminar(index:number){
     this.listaHaceres.splice(index,1)
+  }
+
+
+
+
+
+
+
+
+
+
+
+// consumo api
+  ngOnInit() {
+    this.init();
+  }
+
+  init(){
+    this.apiservice.solicitud().subscribe((data:any)=>{
+      console.log('Datos recibidos ', data);
+
+    })
   }
 }
 
