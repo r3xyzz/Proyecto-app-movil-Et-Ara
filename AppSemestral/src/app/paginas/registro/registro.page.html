@@ -13,23 +13,21 @@
       <ion-card-title>Registro</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form (keyup.enter)="guardar()">
         <ion-item>
           <ion-label position="floating">Nombre</ion-label>
-          <ion-input></ion-input>
+          <ion-input [(ngModel)]="nombre"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" ></ion-input>
+          <ion-input type="password" [(ngModel)]="password" ></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Confirmar contraseña</ion-label>
           <ion-input type="password"></ion-input>
         </ion-item>
         <br>
-        <ion-button (click)="guardar()">Registrarse
+        <ion-button (click)="crearUsuario()">Registrarse
         </ion-button>
-      </form>
     </ion-card-content>
   </ion-card>
 </ion-content>

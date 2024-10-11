@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FirebaseLoginService } from 'src/app/servicios/firebase-login.service';
 
 @Component({
   selector: 'app-registro',
@@ -7,22 +9,21 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
+  nombre:string = '';
+  password: string = '';
+  usuario: string = '';
 
-  formularioRegistro: FormGroup;
 
-  constructor(public fb: FormBuilder) { 
-    this.formularioRegistro = this.fb.group({
-      'nombre': new FormControl("", Validators.required),
-      'email': new FormControl("", [Validators.required, Validators.email]),
-      'password': new FormControl("", Validators.required),
-      'confirmarPassword': new FormControl("", Validators.required)
-    });
+
+  constructor(private acsses:FirebaseLoginService, router:Router) { 
+
   }
 
   ngOnInit() { }
 
-  guardar() {
-    // Aquí puedes agregar la lógica para manejar el registro
-    console.log('Registrando con', this.formularioRegistro.value);
+
+  async crearUsuario(){
+    await this.acsses.create_user(this.password,this.nombre);
   }
+
 }

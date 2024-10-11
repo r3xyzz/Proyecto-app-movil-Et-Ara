@@ -7,7 +7,7 @@ export const environment = {
   firebaseConfig:{
     apiKey: 'AIzaSyCWg347KKeGdHil0ApvBlkSqDM3wJdk43Q',
     authDomain: 'ara-et-prog-movil.firebaseapp.com',
-    proyectId: 'ara-et-prog-movil',
+    projectId: 'ara-et-prog-movil',
     storageBucket:'ara-et-prog-movil.appspot.com',
     messaginSenderId:'453591658121',
     appId:'1:453591658121:android:1c1e41205c57ec8c8f6058'
