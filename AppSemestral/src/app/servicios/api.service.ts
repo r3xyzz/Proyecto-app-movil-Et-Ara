@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private apiURL = "https://zenquotes.io/api/today/"
+  private apiURL = ""
 
   constructor(private http:HttpClient) { }
 

@@ -4,6 +4,7 @@ import { AgregaHabitosPage } from '../paginas/agrega-habitos/agrega-habitos.page
 import { AgregarHabitoVozPage } from '../paginas/agregar-habito-voz/agregar-habito-voz.page';
 
 import {ApiService} from 'src/app/servicios/api.service'
+import { QueHaceresService } from '../servicios/que-haceres.service';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +13,27 @@ import {ApiService} from 'src/app/servicios/api.service'
 })
 export class HomePage implements OnInit {
 
-  constructor(public modalControlador:ModalController, private apiservice : ApiService) {}
+  constructor(public modalControlador:ModalController, private apiservice : ApiService,  public QueHaceresServicio:QueHaceresService) {
+    this.obtenerHabitos()
+  }
 
+  /*
   listaHaceres: {nombreItem: string,
                 fechaItem: string,
                 prioridadItem: string,
                 categoriaItem: string}[] = [];
+  */
+  listaHaceres: { 
+                  key: string; 
+                  value: { 
+                  nombreItem: string;
+                  fechaItem: string;
+                  prioridadItem: string;
+                  categoriaItem: string;
+                         } 
+                }[] = [];
+                
+
 
 
   async agregaHabito(){
@@ -26,32 +42,30 @@ export class HomePage implements OnInit {
     })
 
     modal.onDidDismiss().then(nuevoObjHabito => {
-      console.log(nuevoObjHabito.data);
-      this.listaHaceres.push(nuevoObjHabito.data)
-      console.log(this.listaHaceres);
+      this.obtenerHabitos()
     })
     return await modal.present()
   }
 
 
-  async agregaHabitoVoz(){
-    const modal = await this.modalControlador.create({
-      component: AgregarHabitoVozPage
-    })
+ 
 
-    modal.onDidDismiss().then(nuevoObjHabito => {
-      console.log(nuevoObjHabito.data);
-      //this.listaHaceres.push(nuevoObjHabito.data)
-      console.log(this.listaHaceres);
-    })
-    return await modal.present()
+  obtenerHabitos(){
+    this.listaHaceres = this.QueHaceresServicio.obtenerHabitos()
+    console.log(this.QueHaceresServicio.obtenerHabitos());
   }
 
 
 
+  eliminar(key:string){
+    this.QueHaceresServicio.eliminarHabito(key);
+    this.obtenerHabitos()
+  }
+  /* 
   eliminar(index:number){
     this.listaHaceres.splice(index,1)
   }
+  */
 
 
 
@@ -73,6 +87,23 @@ export class HomePage implements OnInit {
       console.log('Datos recibidos ', data);
 
     })
+  }
+
+
+   //HABITO VOZ
+   async agregaHabitoVoz(){
+    const modal = await this.modalControlador.create({
+      component: AgregarHabitoVozPage
+    })
+
+    modal.onDidDismiss().then(nuevoObjHabito => {
+      //console.log(nuevoObjHabito.data);
+      //this.listaHaceres.push(nuevoObjHabito.data)
+      //console.log(this.listaHaceres);
+
+
+    })
+    return await modal.present()
   }
 }
 

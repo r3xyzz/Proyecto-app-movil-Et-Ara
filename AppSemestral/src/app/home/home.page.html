@@ -6,21 +6,21 @@
   <ion-card *ngFor="let item of listaHaceres ; let i = index" class="ion-margin">
     <ion-card-header>
 
-      <ion-card-subtitle [style.color]="item.prioridadItem === 'alto' ? 'red' : (item.prioridadItem === 'bajo' ? 'green' : 'orange') ">
-        {{item.categoriaItem}}
+      <ion-card-subtitle [style.color]="item.value.prioridadItem === 'alto' ? 'red' : (item.value.prioridadItem === 'bajo' ? 'green' : 'orange') ">
+        {{item.value.categoriaItem}}
       </ion-card-subtitle>
 
       <ion-item>
-        <ion-icon *ngIf="item.prioridadItem === 'alto'" color="danger" size="small" name="ellipse"></ion-icon>
-        <ion-icon *ngIf="item.prioridadItem === 'medio'" color="warning" size="small" name="ellipse"></ion-icon>
-        <ion-icon *ngIf="item.prioridadItem === 'bajo'" color="success" size="small" name="ellipse"></ion-icon>
-        <ion-label>{{item.nombreItem}}</ion-label>
+        <ion-icon *ngIf="item.value.prioridadItem === 'alto'" color="danger" size="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.value.prioridadItem === 'medio'" color="warning" size="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.value.prioridadItem === 'bajo'" color="success" size="small" name="ellipse"></ion-icon>
+        <ion-label>{{ item.value.nombreItem }}</ion-label>
       </ion-item>
 
     </ion-card-header>
 
     <ion-card-content>
-      <ion-label>Vence en {{item.fechaItem | date:'fullDate'}}</ion-label>
+      <ion-label>Vence en {{item.value.fechaItem | date:'fullDate'}}</ion-label>
     </ion-card-content>
 
     <ion-row>
@@ -32,8 +32,7 @@
       </ion-item>
 
 
-
-      <ion-item button (click)="eliminar(i)">
+      <ion-item button (click)="eliminar(item.key)">
         <ion-icon name="trash-outline"></ion-icon>
         <p>Cancelar</p>
       </ion-item>

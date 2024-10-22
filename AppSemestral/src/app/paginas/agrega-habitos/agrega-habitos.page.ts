@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { QueHaceresService } from 'src/app/servicios/que-haceres.service';
 
 @Component({
   selector: 'app-agrega-habitos',
@@ -21,7 +22,7 @@ export class AgregaHabitosPage implements OnInit {
     categoriaItem: ''
   };
 
-  constructor(public modalControlador:ModalController) { }
+  constructor(public modalControlador:ModalController, public QueHaceresServicio:QueHaceresService) { }
   
   ngOnInit() {
   }
@@ -34,19 +35,19 @@ export class AgregaHabitosPage implements OnInit {
     this.categoriaHabito = this.categorias[index]
   }
 
-  agregaHabito(){
+  async agregaHabito(){
     this.objetoHabito = ({nombreItem:this.nombreHabito, 
                           fechaItem:this.fechaHabito, 
                           prioridadItem:this.prioridadHabito,
                           categoriaItem:this.categoriaHabito})
 
     console.log(this.objetoHabito);
-    console.log(Object.values(this.objetoHabito));
+    let uid = this.nombreHabito + this.fechaHabito
 
-    if(this.objetoHabito){
-
+    if(uid){
+      await this.QueHaceresServicio.agregarHabito(uid,this.objetoHabito)
     }else{
-
+      console.log("No se puede guardar un Hábito vacío")
     }
 
     this.quitar()
