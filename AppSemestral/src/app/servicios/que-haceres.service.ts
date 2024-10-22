@@ -21,7 +21,9 @@ export class QueHaceresService {
   obtenerHabitos(){
     let habitos: any = []
     this.storage.forEach((key, value, index) => {
-      habitos.push({'key':value, 'value':key})
+      if (value.startsWith('habito_')){
+        habitos.push({'key':value, 'value':key})
+      }
     });
     return habitos
   }

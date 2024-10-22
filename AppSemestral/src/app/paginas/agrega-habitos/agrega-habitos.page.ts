@@ -42,7 +42,8 @@ export class AgregaHabitosPage implements OnInit {
                           categoriaItem:this.categoriaHabito})
 
     console.log(this.objetoHabito);
-    let uid = this.nombreHabito + this.fechaHabito
+    //let uid = this.nombreHabito + this.fechaHabito
+    let uid = `habito_${this.nombreHabito}_${this.fechaHabito}`;
 
     if(uid){
       await this.QueHaceresServicio.agregarHabito(uid,this.objetoHabito)
