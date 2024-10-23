@@ -1,6 +1,6 @@
 <ion-app>
 
-  <ion-menu content-id="main">
+  <ion-menu content-id="main" *ngIf="mostrarMenu">
 
     <ion-header>
 
@@ -14,6 +14,7 @@
 
       <ion-list>
 
+        <!-- BOTONCITO A HOME -->
         <ion-item [routerLink]="['/home']">
 
           <ion-icon name="checkbox" slot="start"></ion-icon>
@@ -21,6 +22,7 @@
 
         </ion-item>
 
+        <!-- BOTONCITO A PERFIL -->
         <ion-item [routerLink]="['/perfil']">
 
           <ion-icon name="person" slot="start"></ion-icon>
@@ -28,10 +30,20 @@
 
         </ion-item>
 
-        <ion-item>
+
+        <!-- BOTONCITO A HISTORIAL HABITOS -->
+        <ion-item [routerLink]="['/historial-habitos']">
 
           <ion-icon name="calendar" slot="start"></ion-icon>
           <ion-label>Historial de Hábitos</ion-label>
+
+        </ion-item>
+
+        <!-- BOTONCITO LOGOUT -->
+        <ion-item (click)="confirmarCerrarSesion()">
+
+          <ion-icon name="log-out" slot="start" class="cerrarSesion"></ion-icon>
+          <ion-label class="cerrarSesion">Cerrar Sesión</ion-label>
 
         </ion-item>
 
