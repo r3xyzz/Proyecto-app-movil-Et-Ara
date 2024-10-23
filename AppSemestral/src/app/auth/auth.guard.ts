@@ -10,22 +10,21 @@ import { Storage } from '@ionic/storage-angular';
 
    export class AuthGuard{
   constructor(private route:Router, private storage: Storage){
-  this.init();
+    this.init();
   }
   
   async init(){
-  await this.storage.create();
+    await this.storage.create();
   }
   
   canActivate : CanActivateFn = async(route,state) =>{
     const SessionActivate = await this.storage.get("SessionID");
 
     if(SessionActivate){
-      return true;
+      return this.route.createUrlTree(['/home'])
     }
-
       else{
-        return this.route.createUrlTree(['/login'])
+        return true
       }
   }
 
