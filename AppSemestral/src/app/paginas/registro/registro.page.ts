@@ -16,9 +16,7 @@ export class RegistroPage implements OnInit {
 
 
 
-  constructor(private acsses:FirebaseLoginService, public router:Router,public alerta:AlertController) { 
-
-  }
+  constructor(private acsses:FirebaseLoginService, public router:Router,public alerta:AlertController) { }
 
   traducirMensajeError(error: any): string {
     switch (error.code) {
