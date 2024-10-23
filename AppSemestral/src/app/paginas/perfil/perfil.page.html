@@ -1,42 +1,48 @@
-<!-- Mene desplegable reutilizado-->
+<!-- Imagen de perfil y nombre -->
 <app-header [titulo]="'Perfil'"></app-header>
 
 <!-- Contenido principal -->
-  <ion-content class="ion-padding">
+<ion-content class="ion-padding">
 
-    <!-- Imagen de perfil y nombre -->
-    <ion-item>
-      <ion-avatar slot="start">
-        <img alt="Foto de Perfil" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      </ion-avatar>
-      <ion-label>
-        <h2>Tu Nombre</h2>
-      </ion-label>
-    </ion-item>
+  <!-- Imagen de perfil y nombre -->
+  <ion-item>
+    <ion-avatar slot="start">
+      <img alt="Foto de Perfil" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
+    <ion-label>
+      <h2>{{ nombre }}</h2>
+    </ion-label>
+  </ion-item>
 
-    <!-- Metas personales -->
-    <ion-item-divider></ion-item-divider>
-    <ion-label>Metas personales</ion-label>
-    <ion-item>
-      <ion-label>Mejorar la productividad</ion-label>
-    </ion-item>
+  <!-- Campo de entrada para cambiar el nombre -->
+  <ion-item>
+    <ion-label position="floating">Nuevo Nombre</ion-label>
+    <ion-input [(ngModel)]="nombre"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="guardarNombre()">Guardar Nombre</ion-button>
 
-    <!-- Zona horaria y fecha actual -->
-    <ion-item-divider></ion-item-divider>
-    <ion-item>
-      <ion-label>Zona Horaria</ion-label>
-      <ion-note slot="end">GMT-5</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label>Fecha Actual</ion-label>
-      <ion-note slot="end">{{ currentDate }}</ion-note>
-    </ion-item>
+  <!-- Metas personales -->
+  <ion-item-divider></ion-item-divider>
+  <ion-label>Metas personales</ion-label>
+  <ion-item>
+    <ion-label>Mejorar la productividad</ion-label>
+  </ion-item>
 
-    <!-- Ultima actividad -->
-    <ion-item-divider></ion-item-divider>
-    <ion-label>Última Actividad</ion-label>
-    <ion-item>
-      <ion-label>Día: 30 de julio</ion-label>
-    </ion-item>
-  </ion-content>
+  <!-- Zona horaria y fecha actual -->
+  <ion-item-divider></ion-item-divider>
+  <ion-item>
+    <ion-label>Zona Horaria</ion-label>
+    <ion-note slot="end">GMT-5</ion-note>
+  </ion-item>
+  <ion-item>
+    <ion-label>Fecha Actual</ion-label>
+    <ion-note slot="end">{{ currentDate }}</ion-note>
+  </ion-item>
 
+  <!-- Ultima actividad -->
+  <ion-item-divider></ion-item-divider>
+  <ion-label>Última Actividad</ion-label>
+  <ion-item>
+    <ion-label>Día: 30 de julio</ion-label>
+  </ion-item>
+</ion-content>
