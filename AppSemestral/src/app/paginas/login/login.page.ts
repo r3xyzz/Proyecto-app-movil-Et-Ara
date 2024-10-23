@@ -19,15 +19,31 @@ export class LoginPage implements OnInit {
 
   
 
-  async MensajeError() {
+  async MensajeError(mensajeError: string) {
     const alert = await this.alerta.create({
       header: 'ERROR',
-      subHeader: 'Nombre de Usuario o Contraseña vacíos',
-      message: 'Por favor, ingrese su nombre o contraseña',
+      subHeader: 'Inicio de Sesión fallido',
+      message: mensajeError,
       buttons: ['Aceptar']
     });
     await alert.present();
     }
+
+    traducirMensajeError(error: any): string {
+      switch (error.code) {
+        case 'auth/invalid-email':
+          return 'El formato del correo electrónico es incorrecto.';
+        case 'auth/user-not-found':
+          return 'No existe un usuario con ese correo.';
+        case 'auth/wrong-password':
+          return 'La contraseña es incorrecta.';
+          case 'auth/invalid-credential':
+            return 'Correo o contraseña son incorrectas.';
+        default:
+          return 'Ocurrió un error inesperado. Por favor, inténtelo de nuevo.';
+      }
+    }
+    
 
   async MensajeCorrecto() {
     const toast = await this.mensaje.create({
@@ -41,7 +57,7 @@ export class LoginPage implements OnInit {
   ingresar() {
     if (this.nombre==="" || this.password===""){
       console.log("ERROR NOMBRE Y CONTRASEÑA: VACIOS")
-      this.MensajeError()
+      this.MensajeError("Nombre y Contraseña NO DEBEN ESTAR VACIOS.")
     }
     else{
       this.access.login(this.nombre,this.password).then(()=>{
@@ -53,8 +69,9 @@ export class LoginPage implements OnInit {
         this.router.navigate(["/home"])
 
        //DEPENDIENDO DEL ERROR, SE DEBERÁ RECIBIR DE PARAMETRO EN EL MÉTODO "MensajeError()" UNA CADENA DE TEXTO QUE INDIQUE EL ERROR 
-      }).catch(()=>{
-        this.MensajeError()
+      }).catch((error)=>{
+        console.log("Error LOGIN!!!")
+        this.MensajeError(this.traducirMensajeError(error));
       })
     }
   }
