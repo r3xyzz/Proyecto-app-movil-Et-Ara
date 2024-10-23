@@ -5,8 +5,7 @@ import { AuthGuard } from './auth/auth.guard';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule), 
-    canActivate:[AuthGuard]
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
@@ -15,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./paginas/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./paginas/login/login.module').then( m => m.LoginPageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'registro',
@@ -28,7 +28,8 @@ const routes: Routes = [
   {
     path: 'agrega-habitos',
     loadChildren: () => import('./paginas/agrega-habitos/agrega-habitos.module').then( m => m.AgregaHabitosPageModule)
-  },  {
+  },
+  {
     path: 'historial-habitos',
     loadChildren: () => import('./paginas/historial-habitos/historial-habitos.module').then( m => m.HistorialHabitosPageModule)
   },
