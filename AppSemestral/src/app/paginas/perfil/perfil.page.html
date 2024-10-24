@@ -1,9 +1,10 @@
-<!-- Imagen de perfil y nombre -->
-<app-header [titulo]="'Perfil'"></app-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<!-- Contenido principal -->
 <ion-content class="ion-padding">
-
   <!-- Imagen de perfil y nombre -->
   <ion-item>
     <ion-avatar slot="start">
@@ -23,9 +24,8 @@
 
   <!-- Metas personales -->
   <ion-item-divider></ion-item-divider>
-  <ion-label>Metas personales</ion-label>
   <ion-item>
-    <ion-label>Mejorar la productividad</ion-label>
+    <ion-label>Mejorar la productividad</ion-label> <!-- Corrección del cierre -->
   </ion-item>
 
   <!-- Zona horaria y fecha actual -->
@@ -35,14 +35,16 @@
     <ion-note slot="end">GMT-5</ion-note>
   </ion-item>
   <ion-item>
-    <ion-label>Fecha Actual</ion-label>
+    <ion-label>Fecha Actual</ion-label> <!-- Corrección del cierre -->
     <ion-note slot="end">{{ currentDate }}</ion-note>
   </ion-item>
 
-  <!-- Ultima actividad -->
+  <!-- Última actividad -->
   <ion-item-divider></ion-item-divider>
-  <ion-label>Última Actividad</ion-label>
   <ion-item>
-    <ion-label>Día: 30 de julio</ion-label>
+    <ion-label>Última Actividad</ion-label> <!-- Corrección del cierre -->
+  </ion-item>
+  <ion-item>
+    <ion-label>Día: 30 de julio</ion-label> <!-- Corrección del cierre -->
   </ion-item>
 </ion-content>
