@@ -19,28 +19,36 @@
   <ion-button expand="full" (click)="guardarNombre()">Guardar Nombre</ion-button>
 
   <!-- Metas personales -->
-  <ion-item-divider></ion-item-divider>
+  <ion-item-divider color="light">
+    <ion-label>Metas Personales</ion-label>
+  </ion-item-divider>
   <ion-item>
-    <ion-label>Mejorar la productividad</ion-label> <!-- Corrección del cierre -->
+    <ion-label>Mejorar la productividad</ion-label>
   </ion-item>
 
-  <!-- Zona horaria y fecha actual -->
-  <ion-item-divider></ion-item-divider>
+  <!-- Cambio de Zona Horaria y Fecha Actual -->
+  <ion-item-divider color="light">
+    <ion-label>Cambio de Zona Horaria y Fecha Actual</ion-label>
+  </ion-item-divider>
   <ion-item>
     <ion-label>Zona Horaria</ion-label>
-    <ion-note slot="end">GMT-5</ion-note>
+    <ion-select [(ngModel)]="zonaHoraria" (ionChange)="cambiarZonaHoraria()" interface="popover">
+      <ion-select-option value="GMT-3">Zona horaria de Santiago (GMT-3)</ion-select-option>
+      <ion-select-option value="GMT-5">Isla de Pascua (GMT-5)</ion-select-option>
+      <ion-select-option value="GMT-3-Punta">Punta Arenas (GMT-3)</ion-select-option>
+    </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label>Fecha Actual</ion-label> <!-- Corrección del cierre -->
+    <ion-label>Fecha Actual</ion-label>
     <ion-note slot="end">{{ currentDate }}</ion-note>
   </ion-item>
 
   <!-- Última actividad -->
-  <ion-item-divider></ion-item-divider>
+  <ion-item-divider color="light">
+    <ion-label>Última Actividad Registrada</ion-label>
+  </ion-item-divider>
   <ion-item>
-    <ion-label>Última Actividad</ion-label> <!-- Corrección del cierre -->
-  </ion-item>
-  <ion-item>
-    <ion-label>Día: 30 de julio</ion-label> <!-- Corrección del cierre -->
+    <ion-label>Última Actividad</ion-label>
+    <ion-note slot="end">{{ fechaUltimaActividad }}</ion-note> <!-- Ahora solo muestra la fecha -->
   </ion-item>
 </ion-content>
