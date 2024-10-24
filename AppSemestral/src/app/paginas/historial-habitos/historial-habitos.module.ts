@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { HistorialHabitosPageRoutingModule } from './historial-habitos-routing.module';
 
 import { HistorialHabitosPage } from './historial-habitos.page';
+import { ShareModule } from 'src/app/modulos/share/share.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { HistorialHabitosPage } from './historial-habitos.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HistorialHabitosPageRoutingModule
+    HistorialHabitosPageRoutingModule,
+    ShareModule
   ],
   declarations: [HistorialHabitosPage]
 })

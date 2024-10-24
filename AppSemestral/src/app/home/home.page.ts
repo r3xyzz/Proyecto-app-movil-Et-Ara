@@ -17,12 +17,6 @@ export class HomePage implements OnInit {
     this.obtenerHabitos()
   }
 
-  /*
-  listaHaceres: {nombreItem: string,
-                fechaItem: string,
-                prioridadItem: string,
-                categoriaItem: string}[] = [];
-  */
   listaHaceres: { 
                   key: string; 
                   value: { 
