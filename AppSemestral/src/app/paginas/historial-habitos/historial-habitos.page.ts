@@ -1,3 +1,4 @@
+import { QueHaceresService } from 'src/app/servicios/que-haceres.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,16 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./historial-habitos.page.scss'],
 })
 export class HistorialHabitosPage implements OnInit {
-  constructor() {}
+  constructor(public QueHaceresServicio: QueHaceresService) {
+    this.obtenerHistorialHabitos();
+  }
 
-  listaHaceres: {nombreItem: string,
-                fechaItem: string,
-                prioridadItem: string,
-                categoriaItem: string}[] = [];
-
-  hoy: number = Date.now()
+  historialHaceres: any[] = [];
+  today: Date = new Date();  // Fecha actual para comparar con los hábitos
 
   ngOnInit() {
+    this.init()
+  }
+
+  init(){
+    this.obtenerHistorialHabitos();
+  }
+
+  async obtenerHistorialHabitos() {
+    this.historialHaceres = await this.QueHaceresServicio.obtenerHistorialHabitos();
+  }
+
+  eliminar(key:string){
+    this.QueHaceresServicio.eliminarHabito(key);
+    this.obtenerHistorialHabitos()
   }
 
 }

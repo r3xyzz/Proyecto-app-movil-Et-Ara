@@ -1,38 +1,40 @@
 <app-header [titulo]="'Historial'"></app-header>
 
 <ion-content [fullscreen]="true">
-
-
-  <ion-card class="ion-margin">
+  <ion-card *ngFor="let item of historialHaceres; let i = index" class="ion-margin">
     <ion-card-header>
-
-      <ion-card-subtitle>
-
+      <ion-card-subtitle [style.color]="item.value.prioridadItem === 'alto' ? 'red' : (item.value.prioridadItem === 'bajo' ? 'green' : 'orange')">
+        {{ item.value.categoriaItem }}
       </ion-card-subtitle>
-
       <ion-item>
-        <ion-icon></ion-icon>
-        <ion-icon></ion-icon>
-        <ion-icon ></ion-icon>
-        <ion-label></ion-label>
+        <ion-icon *ngIf="item.value.prioridadItem === 'alto'" color="danger" size="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.value.prioridadItem === 'medio'" color="warning" size="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.value.prioridadItem === 'bajo'" color="success" size="small" name="ellipse"></ion-icon>
+        <ion-label>{{ item.value.nombreItem }}</ion-label>
       </ion-item>
-
     </ion-card-header>
-
     <ion-card-content>
-      <ion-label>Este hábito...</ion-label>
+      <div>
+        <ion-label>Vencimiento en {{ item.value.fechaItem | date:'fullDate' }}</ion-label>
+      </div>
+
+
+      <!-- Mostrar si fue completado, cancelado o vencido -->
+      <ion-label *ngIf="item.value.estado === 'completado'" color="success">Completado el {{ item.value.fechaMovimiento | date:'fullDate' }}</ion-label>
+      <ion-label *ngIf="item.value.estado === 'cancelado'" color="danger">Cancelado el {{ item.value.fechaMovimiento | date:'fullDate' }}</ion-label>
+      
+      <!-- Mostrar si el hábito venció -->
+      <ion-label *ngIf="item.value.fechaItem < today && !item.value.estado">Vencido el {{ item.value.fechaItem | date:'fullDate' }}</ion-label>
     </ion-card-content>
 
+    
     <ion-row>
 
-      <!-- AQUÍ PONGO SI ES QUE FUE ELIMINADO, SU FECHA DE VENC PASÓ O SI ES QUE FUE COMPLETADO -->
-      <ion-item>
-        <ion-icon name="checkmark-outline"></ion-icon>
-        <p>Completado</p>
+      <ion-item button (click)="eliminar(item.key)">
+        <ion-icon name="trash-outline"></ion-icon>
+        <p>eliminar :-3</p>
       </ion-item>
-
 
     </ion-row>
   </ion-card>
-
 </ion-content>

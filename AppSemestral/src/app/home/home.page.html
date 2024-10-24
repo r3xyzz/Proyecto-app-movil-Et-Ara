@@ -26,7 +26,7 @@
     <ion-row>
 
   
-      <ion-item button>
+      <ion-item button (click)="moverAHistorial(item.key, item.value, 'completado')">
         <ion-icon name="checkmark-outline"></ion-icon>
         <p>Completado</p>
       </ion-item>

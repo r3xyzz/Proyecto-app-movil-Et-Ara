@@ -41,25 +41,26 @@ export class HomePage implements OnInit {
     return await modal.present()
   }
 
-
- 
-
   obtenerHabitos(){
     this.listaHaceres = this.QueHaceresServicio.obtenerHabitos()
     console.log(this.QueHaceresServicio.obtenerHabitos());
   }
 
-
-
+  // Eliminar hábito directamente (solo por el botón de cancelar)
   eliminar(key:string){
     this.QueHaceresServicio.eliminarHabito(key);
     this.obtenerHabitos()
   }
-  /* 
-  eliminar(index:number){
-    this.listaHaceres.splice(index,1)
+
+  // Mover al historial (completado o cancelado)
+  async moverAHistorial(key: string, value: any, estado: string) {
+    await this.QueHaceresServicio.moverAHistorial(key, value, estado);
+    console.log("-----------------------------------------------")
+    console.log("key: ",key)
+    console.log("value: ",value)
+    console.log("estado: ",estado)
+    this.obtenerHabitos(); // Refresca la lista de hábitos activos
   }
-  */
 
 
 
