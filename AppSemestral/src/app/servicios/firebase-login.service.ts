@@ -8,28 +8,39 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FirebaseLoginService {
 
-  constructor(private afAuth:AngularFireAuth, private router:Router, private firestore : AngularFirestore) { }
-  login(email:string,password:string){
-    return this.afAuth.signInWithEmailAndPassword(email,password);
+  constructor(private afAuth: AngularFireAuth, private router: Router, private firestore: AngularFirestore) { }
 
+  login(email: string, password: string) {
+    return this.afAuth.signInWithEmailAndPassword(email, password);
   }
-  logout(){
-    this.afAuth.signOut().then(()=>{
+
+  logout() {
+    this.afAuth.signOut().then(() => {
       this.router.navigate(['/login']);
     });
   }
 
-  async create_user (password:string,nombre:string){
-    const userCredential = await this.afAuth.createUserWithEmailAndPassword(nombre,password);
+  async create_user(email: string, password: string, nombre: string) {
+    const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
     const uid = userCredential.user?.uid;
     await this.firestore.doc(`users/${uid}`).set({
-      nombre : nombre,
-      password : password,
-      uid : uid
+      email: email,
+      nombre: nombre,
+      uid: uid
     });
     return userCredential;
-
-
   }
 
+  async getUserData(uid: string) {
+    const doc = await this.firestore.doc(`users/${uid}`).get().toPromise();
+    if (doc && doc.exists) {
+      return doc.data() as { nombre: string }; // Aseguramos el tipo de retorno
+    } else {
+      throw new Error('No such document!');
+    }
+  }
+
+  async updateUserName(uid: string, nombre: string) {
+    await this.firestore.doc(`users/${uid}`).update({ nombre: nombre });
+  }
 }

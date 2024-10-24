@@ -1,36 +1,35 @@
 <ion-content [fullscreen]="true">
-
   <div class="header">
     <ion-title class="titulo">¡Bienvenido!</ion-title>
     <p class="subtitulo">Inicia sesión para acceder a tu cuenta</p>
   </div>
 
+  <div class="ion-padding">
+    <!-- input correo -->
+    <ion-item>
+      <ion-input placeholder="Correo" class="input" [(ngModel)]="email" type="email"></ion-input>
+      <ion-icon name="mail-outline"></ion-icon>
+    </ion-item>
 
-    <div class="ion-padding">
+    <!-- input nombre -->
+    <ion-item>
+      <ion-input placeholder="Nombre" class="input" [(ngModel)]="nombre"></ion-input>
+      <ion-icon name="person-outline"></ion-icon>
+    </ion-item>
 
-      <!-- input nombrecito -->
-      <ion-item>
-        <ion-input placeholder="Nombre" class="input" [(ngModel)]="nombre"></ion-input>
-        <ion-icon name="person-outline"></ion-icon>
-      </ion-item>
+    <!-- input contraseña -->
+    <ion-item>
+      <ion-input placeholder="Contraseña" class="input" [(ngModel)]="password" type="password"></ion-input>
+      <ion-icon name="lock-closed-outline"></ion-icon>
+    </ion-item>
 
-      <!-- input contraseñita :-p -->
-      <ion-item>
-        <ion-input placeholder="Contraseña" class="input" [(ngModel)]="password" type="password"></ion-input>
-        <ion-icon name="lock-closed-outline"></ion-icon>
-      </ion-item>
-
-      <!-- anchor Registro -->
-      <div class="registroLink">
-        <p>¿Eres nuevo? <a [routerLink]="['/registro']">Registrate ahora</a></p>
-      </div>
-
-      <ion-button (click)="ingresar()" expand="block">
-        Ingresar
-      </ion-button>
+    <!-- anchor Registro -->
+    <div class="registroLink">
+      <p>¿Eres nuevo? <a [routerLink]="['/registro']">Registrate ahora</a></p>
     </div>
 
-
-  
+    <ion-button (click)="ingresar()" expand="block">
+      Ingresar
+    </ion-button>
+  </div>
 </ion-content>
-
