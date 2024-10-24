@@ -1,25 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueHaceresService {
 
+  private historialSubject = new BehaviorSubject<any[]>([]);
+  historial$ = this.historialSubject.asObservable();  // Observable para historial
+
+
   constructor(private storage: Storage) {
     this.init()
    }
 
    async init(){
-    await this.storage.create()
+    await this.storage.create();
+    await this.obtenerHistorialHabitos();
   }
 
   agregarHabito(key:string, value:any){
     this.storage.set(key, value)
   }
 
-  eliminarHabito(key:string){
+  async eliminarHabito(key:string){
     this.storage.remove(key);
+    await this.obtenerHistorialHabitos();
   }
 
   obtenerHabitos(){
@@ -50,6 +57,7 @@ export class QueHaceresService {
 
     // Eliminar el hábito activo
     await this.eliminarHabito(key);
+    await this.obtenerHistorialHabitos();
   }
 
 
@@ -61,7 +69,7 @@ export class QueHaceresService {
         historialHabitos.push({ 'key': value, 'value': key });
       }
     });
-    return historialHabitos;
+    this.historialSubject.next(historialHabitos);  // Emitir el historial actualizado
   }
 
   

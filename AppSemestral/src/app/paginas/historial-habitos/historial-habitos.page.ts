@@ -8,27 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistorialHabitosPage implements OnInit {
   constructor(public QueHaceresServicio: QueHaceresService) {
-    this.obtenerHistorialHabitos();
   }
 
   historialHaceres: any[] = [];
   today: Date = new Date();  // Fecha actual para comparar con los hábitos
 
   ngOnInit() {
-    this.init()
+    this.QueHaceresServicio.historial$.subscribe(historial => {
+      this.historialHaceres = historial;  // Actualizar historial cuando cambie
+    });
   }
 
-  init(){
-    this.obtenerHistorialHabitos();
-  }
-
+  /*
   async obtenerHistorialHabitos() {
     this.historialHaceres = await this.QueHaceresServicio.obtenerHistorialHabitos();
+
   }
+  */
 
   eliminar(key:string){
     this.QueHaceresServicio.eliminarHabito(key);
-    this.obtenerHistorialHabitos()
+
   }
 
 }
