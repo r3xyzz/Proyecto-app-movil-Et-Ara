@@ -8,25 +8,24 @@ import { Storage } from '@ionic/storage-angular';
   providedIn:'root'
 })
 
-   export class AuthGuard{
-  constructor(private route:Router, private storage: Storage){
-    this.init();
-  }
-  
-  async init(){
-    await this.storage.create();
-  }
-  
-  canActivate : CanActivateFn = async(route,state) =>{
-    const SessionActivate = await this.storage.get("SessionID");
-
-    if(SessionActivate){
-      return this.route.createUrlTree(['/home'])
+  export class AuthGuard{
+    constructor(private route:Router, private storage: Storage){
+      this.init();
     }
-      else{
-        return true
-      }
-  }
+  
+    async init(){
+      await this.storage.create();
+    }
+  
+    canActivate : CanActivateFn = async(route,state) =>{
+      const SessionActivate = await this.storage.get("SessionID");
+
+      if(SessionActivate){
+        return this.route.createUrlTree(['/home'])
+      }else{
+          return true
+        }
+    }
 
   }
   
