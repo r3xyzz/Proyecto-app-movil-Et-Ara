@@ -13,15 +13,20 @@
     <div class="wave-line" *ngFor="let line of waveLinesData" #line></div>
   </div>
 
-  <ion-button expand="block" class="ion-padding">
+  <ion-button expand="block" class="ion-padding" (click)="empezarReconocimiento()" *ngIf="!grabando">
     <ion-icon name="mic-outline"></ion-icon>
     ¡Empieza a Hablar!
+  </ion-button>
+
+  <ion-button expand="block" class="ion-padding" (click)="pararReconocimiento()" *ngIf="grabando">
+    <ion-icon name="mic-outline"></ion-icon>
+    Parar Grabación
   </ion-button>
 
   <div class="ion-padding">
     <ion-item>
       <ion-label position="stacked">Nombre Hábito:</ion-label>
-      <ion-textarea placeholder="EJ: Ejercicios" readonly></ion-textarea>
+      <ion-textarea placeholder="EJ: Ejercicios" [(ngModel)]="nombreHabito" readonly></ion-textarea>
     </ion-item>
 
     <ion-item>

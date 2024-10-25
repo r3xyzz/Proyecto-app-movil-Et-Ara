@@ -1,4 +1,4 @@
-import { Component, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { SpeechRecognition } from "@capacitor-community/speech-recognition";
 import { createAnimation, Animation } from '@ionic/core';
 import { ModalController } from '@ionic/angular';
@@ -11,7 +11,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./agregar-habito-voz.page.scss'],
 })
 export class AgregarHabitoVozPage implements AfterViewInit {
-  recording = false;
+  grabando = false;
 
 
   //VARIABLES PARA EL ALMACENADO DE HABITO
@@ -29,7 +29,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     categoriaItem: ''
   };
 
-  constructor(public modalControlador:ModalController) {
+  constructor(public modalControlador:ModalController, private changeDetectorRef: ChangeDetectorRef) {
     SpeechRecognition.requestPermissions();
    }
 
@@ -40,18 +40,36 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     const { available } = await SpeechRecognition.available();
 
     if (available){
+      this.grabando = true;
       SpeechRecognition.start({
         popup: false,
         partialResults: true,
         language: "es-US",
 
       });
+
+
+
+      SpeechRecognition.addListener("partialResults", (data: any) => {
+        console.log("partialResults was fired", data.matches);
+        //Si es que se obtienen resultados... (más de 0)
+        if(data.matches && data.matches.length > 0){
+          this.nombreHabito = data.matches[0];
+          this.changeDetectorRef.detectChanges();
+        }
+
+        //Para android
+        if(data.value && data.value.length > 0){
+          this.nombreHabito = data.value[0];
+          this.changeDetectorRef.detectChanges();
+        }
+      });
     }
 
   }
 
   async pararReconocimiento(){
-    this.recording = false;
+    this.grabando = false;
     await SpeechRecognition.stop();
     
   }
