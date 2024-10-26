@@ -4,8 +4,6 @@ import { createAnimation, Animation } from '@ionic/core';
 import { ModalController } from '@ionic/angular';
 import { QueHaceresService } from 'src/app/servicios/que-haceres.service';
 
-
-
 @Component({
   selector: 'app-agregar-habito-voz',
   templateUrl: './agregar-habito-voz.page.html',
@@ -14,95 +12,47 @@ import { QueHaceresService } from 'src/app/servicios/que-haceres.service';
 export class AgregarHabitoVozPage implements AfterViewInit {
   grabando = false;
 
-  nombreHabito : string = ""
-  fechaHabito : string = new Date().toISOString();
-  prioridadHabito : string = ""
-  categoriaHabito : string = ""
+  nombreHabito: string = "";
+  fechaHabito: string = new Date().toISOString();
+  prioridadHabito: string = "";
+  categoriaHabito: string = "";
   campoActivo: number = 0; // 0: Nombre, 1: Prioridad, 2: Fecha, 3: Categoría
 
-  objetoHabito : { nombreItem: string, fechaItem: string, prioridadItem: string, categoriaItem: string } = {
+  objetoHabito: { nombreItem: string, fechaItem: string, prioridadItem: string, categoriaItem: string } = {
     nombreItem: '', 
     fechaItem: '', 
     prioridadItem: '', 
     categoriaItem: ''
   };
 
-  constructor(public modalControlador:ModalController, private changeDetectorRef: ChangeDetectorRef, private queHaceresService: QueHaceresService) {
+  constructor(
+    public modalControlador: ModalController, 
+    private changeDetectorRef: ChangeDetectorRef, 
+    private queHaceresService: QueHaceresService
+  ) {
     SpeechRecognition.requestPermissions();
-   }
+  }
 
-  
-
-
-  async empezarReconocimiento(){
+  async empezarReconocimiento() {
     const { available } = await SpeechRecognition.available();
 
-    if (available){
+    if (available) {
       this.grabando = true;
       SpeechRecognition.start({
         popup: false,
         partialResults: true,
         language: "es-ES",
-
-      });
-
-
-
-      SpeechRecognition.addListener("partialResults", (data: any) => {
-        console.log("valorCampoActivo ER: ",this.campoActivo);
-
-        console.log("partialResults was fired", data.matches);
-        //Si es que se obtienen resultados... (más de 0)
-        if(data.matches && data.matches.length > 0){
-
-          // Asigna el valor en función del campo activo
-          switch (this.campoActivo) {
-            case 0:
-              this.nombreHabito = data.matches[0];
-              break;
-            case 1:
-              this.prioridadHabito = data.matches[0];
-              break;
-            case 2:
-              this.fechaHabito = data.matches[0];
-              break;
-            case 3:
-              this.categoriaHabito = data.matches[0];
-              break;
-          }
-          this.changeDetectorRef.detectChanges();
-        }
-
-        //Para android
-        if(data.value && data.value.length > 0){
-          // Asigna el valor en función del campo activo
-          switch (this.campoActivo) {
-            case 0:
-              this.nombreHabito = data.value[0];
-              break;
-            case 1:
-              this.prioridadHabito = data.value[0];
-              break;
-            case 2:
-              this.fechaHabito = data.value[0];
-              break;
-            case 3:
-              this.categoriaHabito = data.value[0];
-              break;
-          }
-          this.changeDetectorRef.detectChanges();
-        }
       });
     }
   }
 
-  async pararReconocimiento(){
+  async pararReconocimiento() {
     this.grabando = false;
     await SpeechRecognition.stop();
 
     // Cambia al siguiente campo cuando se detiene el reconocimiento
     this.campoActivo++;
-    console.log("**VALOR CAMPO ACTIVO**: ",this.campoActivo);
+    console.log("**VALOR CAMPO ACTIVO**: ", this.campoActivo);
 
     // Valida si se completaron todos los campos
     if (this.campoActivo > 3) {
@@ -110,8 +60,27 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     }
   }
 
-   // Validar y guardar al completar todos los campos
-   validarYGuardar() {
+  // Actualiza el campo activo basado en el resultado de reconocimiento de voz
+  actualizarCampoActivo(result: string) {
+    switch (this.campoActivo) {
+      case 0:
+        this.nombreHabito = result;
+        break;
+      case 1:
+        this.prioridadHabito = result;
+        break;
+      case 2:
+        this.fechaHabito = result;
+        break;
+      case 3:
+        this.categoriaHabito = result;
+        break;
+    }
+    this.changeDetectorRef.detectChanges(); // Actualiza la vista
+  }
+
+  // Validar y guardar al completar todos los campos
+  validarYGuardar() {
     const prioridadValida = ['Alta', 'Media', 'Baja'].includes(this.prioridadHabito);
     const categoriaValida = ['Trabajo', 'Personal', 'Casa'].includes(this.categoriaHabito);
 
@@ -132,20 +101,27 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     }
   }
 
-  async quitar(){
+  async quitar() {
     await this.modalControlador.dismiss(this.objetoHabito);
   }
 
-
-
-
-  //ANIMACIÓN DE WAVES
+  // ANIMACIÓN DE WAVES
   @ViewChildren('line') waveLines!: QueryList<any>; // Acceder a las líneas de la wave
   waveLinesArray: Animation[] = [];
   waveLinesData: number[] = Array.from({ length: 33 }, (_, i) => i + 1);
 
   ngAfterViewInit() {
     this.animateWave();
+
+    // Crear el listener una vez
+    SpeechRecognition.addListener("partialResults", (data: any) => {
+      if (data.matches && data.matches.length > 0) {
+        this.actualizarCampoActivo(data.matches[0]);
+      }
+      if (data.value && data.value.length > 0) {
+        this.actualizarCampoActivo(data.value[0]);
+      }
+    }); 
   }
 
   animateWave() {
@@ -168,5 +144,4 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     // Reproducir todas las animaciones al mismo tiempo
     this.waveLinesArray.forEach((anim) => anim.play());
   }
-
 }
