@@ -49,6 +49,8 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
 
       SpeechRecognition.addListener("partialResults", (data: any) => {
+        console.log("valorCampoActivo ER: ",this.campoActivo);
+
         console.log("partialResults was fired", data.matches);
         //Si es que se obtienen resultados... (más de 0)
         if(data.matches && data.matches.length > 0){
