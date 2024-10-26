@@ -2,6 +2,7 @@ import { Component, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef } 
 import { SpeechRecognition } from "@capacitor-community/speech-recognition";
 import { createAnimation, Animation } from '@ionic/core';
 import { ModalController } from '@ionic/angular';
+import { QueHaceresService } from 'src/app/servicios/que-haceres.service';
 
 
 
@@ -17,6 +18,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
   fechaHabito : string = new Date().toISOString();
   prioridadHabito : string = ""
   categoriaHabito : string = ""
+  campoActivo: number = 0; // 0: Nombre, 1: Prioridad, 2: Fecha, 3: Categoría
 
   objetoHabito : { nombreItem: string, fechaItem: string, prioridadItem: string, categoriaItem: string } = {
     nombreItem: '', 
@@ -25,7 +27,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     categoriaItem: ''
   };
 
-  constructor(public modalControlador:ModalController, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(public modalControlador:ModalController, private changeDetectorRef: ChangeDetectorRef, private queHaceresService: QueHaceresService) {
     SpeechRecognition.requestPermissions();
    }
 
@@ -50,52 +52,86 @@ export class AgregarHabitoVozPage implements AfterViewInit {
         console.log("partialResults was fired", data.matches);
         //Si es que se obtienen resultados... (más de 0)
         if(data.matches && data.matches.length > 0){
-          this.nombreHabito = data.matches[0];
+
+          // Asigna el valor en función del campo activo
+          switch (this.campoActivo) {
+            case 0:
+              this.nombreHabito = data.matches[0];
+              break;
+            case 1:
+              this.prioridadHabito = data.matches[0];
+              break;
+            case 2:
+              this.fechaHabito = data.matches[0];
+              break;
+            case 3:
+              this.categoriaHabito = data.matches[0];
+              break;
+          }
           this.changeDetectorRef.detectChanges();
         }
 
         //Para android
         if(data.value && data.value.length > 0){
-          this.nombreHabito = data.value[0];
+          // Asigna el valor en función del campo activo
+          switch (this.campoActivo) {
+            case 0:
+              this.nombreHabito = data.value[0];
+              break;
+            case 1:
+              this.prioridadHabito = data.value[0];
+              break;
+            case 2:
+              this.fechaHabito = data.value[0];
+              break;
+            case 3:
+              this.categoriaHabito = data.value[0];
+              break;
+          }
           this.changeDetectorRef.detectChanges();
         }
       });
     }
-
   }
 
   async pararReconocimiento(){
     this.grabando = false;
     await SpeechRecognition.stop();
-    
-  }
 
+    // Cambia al siguiente campo cuando se detiene el reconocimiento
+    this.campoActivo++;
 
-
-  // LÓGICA DE ALMACENAMIENTO DE OBJETO EN VARIABLE
-  async quitar(){
-    await this.modalControlador.dismiss(this.objetoHabito)
-  }
-
-  agregaHabitoVoz(){
-    if(this.objetoHabito){
-
-    }else{
-
+    // Valida si se completaron todos los campos
+    if (this.campoActivo > 3) {
+      this.validarYGuardar();
     }
-
-    this.quitar()
-
   }
 
+   // Validar y guardar al completar todos los campos
+   validarYGuardar() {
+    const prioridadValida = ['Alta', 'Media', 'Baja'].includes(this.prioridadHabito);
+    const categoriaValida = ['Trabajo', 'Personal', 'Casa'].includes(this.categoriaHabito);
 
+    if (prioridadValida && categoriaValida) {
+      this.objetoHabito = {
+        nombreItem: this.nombreHabito,
+        fechaItem: this.fechaHabito,
+        prioridadItem: this.prioridadHabito,
+        categoriaItem: this.categoriaHabito,
+      };
 
+      const uid = `habito_${this.nombreHabito}_${this.fechaHabito}`;
+      this.queHaceresService.agregarHabito(uid, this.objetoHabito);
+      this.quitar();  // Cierra el modal
+    } else {
+      alert("Por favor, ingresa valores válidos para Prioridad y Categoría.");
+      this.campoActivo = 0;  // Reinicia al primer campo
+    }
+  }
 
-
-
-
-
-
+  async quitar(){
+    await this.modalControlador.dismiss(this.objetoHabito);
+  }
 
 
 
