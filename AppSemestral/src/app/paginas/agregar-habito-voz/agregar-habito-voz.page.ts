@@ -100,6 +100,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
     // Cambia al siguiente campo cuando se detiene el reconocimiento
     this.campoActivo++;
+    console.log("**VALOR CAMPO ACTIVO**: ",this.campoActivo);
 
     // Valida si se completaron todos los campos
     if (this.campoActivo > 3) {
