@@ -50,16 +50,18 @@ export class AgregarHabitoVozPage implements AfterViewInit {
   async pararReconocimiento() {
     this.grabando = false;
     console.log("**VALOR CAMPO ACTIVO antes DE PARAR SP-REC**: ", this.campoActivo);
-    await SpeechRecognition.stop();
+    
 
     // Cambia al siguiente campo cuando se detiene el reconocimiento
     this.campoActivo++;
-    console.log("**VALOR CAMPO ACTIVO después DE PARAR SP-REC**: ", this.campoActivo);
+    
 
     // Valida si se completaron todos los campos
     if (this.campoActivo > 3) {
       this.validarYGuardar();
     }
+    await SpeechRecognition.stop();
+    console.log("**VALOR CAMPO ACTIVO después DE PARAR SP-REC**: ", this.campoActivo);
   }
 
   // Actualiza el campo activo basado en el resultado de reconocimiento de voz
