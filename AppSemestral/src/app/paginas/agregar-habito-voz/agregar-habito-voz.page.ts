@@ -13,10 +13,6 @@ import { ModalController } from '@ionic/angular';
 export class AgregarHabitoVozPage implements AfterViewInit {
   grabando = false;
 
-
-  //VARIABLES PARA EL ALMACENADO DE HABITO
-  categorias = ['Trabajo','Personal','Casa']
-
   nombreHabito : string = ""
   fechaHabito : string = new Date().toISOString();
   prioridadHabito : string = ""
@@ -44,7 +40,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       SpeechRecognition.start({
         popup: false,
         partialResults: true,
-        language: "es-US",
+        language: "es-ES",
 
       });
 
