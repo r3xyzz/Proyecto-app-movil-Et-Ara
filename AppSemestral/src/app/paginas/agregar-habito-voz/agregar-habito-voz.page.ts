@@ -37,6 +37,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     const { available } = await SpeechRecognition.available();
 
     if (available) {
+      console.log("++VALOR CAMPO ACTIVO++: ", this.campoActivo);
       this.grabando = true;
       SpeechRecognition.start({
         popup: false,
