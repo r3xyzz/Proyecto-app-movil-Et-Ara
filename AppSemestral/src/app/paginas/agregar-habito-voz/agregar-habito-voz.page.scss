@@ -1,22 +1,26 @@
 .wave-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
   
-  .wave-line {
-    width: 4px;
-    height: 70px;
-    background-color: #ffffff; /* Color visible */
-    margin: 0 3px;
-    opacity: 0.8;
-    border-radius: 4px;
-    transform-origin: bottom;
-  }
+.wave-line {
+  width: 4px;
+  height: 70px;
+  background-color: #ffffff; /* Color visible */
+  margin: 0 3px;
+  opacity: 0.8;
+  border-radius: 4px;
+  transform-origin: bottom;
+}
   
-  ion-item{
-   
-    border-radius: 10px;
-    margin-bottom: 16px;
+ion-item{
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+
+.activo{
+  --background: rgb(53, 53, 53);
 }
