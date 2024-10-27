@@ -55,7 +55,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       console.log("++VALOR CAMPO ACTIVO++: ", this.campoActivo);
       this.grabando = true;
       SpeechRecognition.start({
-        popup: true,
+        popup: false,
         partialResults: true,
         language: "es-ES",
       });
@@ -70,6 +70,16 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     // Cambia al siguiente campo cuando se detiene el reconocimiento
     this.campoActivo++;
     
+    if (this.campoActivo = 3){
+      const regexFecha = /(\d{1,2}) de (\w+)(?: a las )?(\d{1,2}):(\d{2})/i;
+      const match = this.textoFechaDisplay.match(regexFecha);
+
+      if(match===null){
+        this.MensajeError("ERROR","Error de formato fecha","Por favor, introduce la fecha en el formato 'DD de mes a las HH:MM'. Ejemplo: '10 de octubre a las 22:30'. ");
+      }
+      
+
+    }
 
     // Valida si se completaron todos los campos
     if (this.campoActivo > 3) {
@@ -123,9 +133,6 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
       this.fechaHabito = fecha.toISOString();
       console.log("Fecha convertida y guardada: ", this.fechaHabito);
-    } else {
-      this.MensajeError("ERROR","Error de formato fecha","Por favor, introduce la fecha en el formato 'DD de mes a las HH:MM'. Ejemplo: '10 de octubre a las 22:30'. ");
-      console.log("No se pudo interpretar la fecha de voz.");
     }
 }
 
