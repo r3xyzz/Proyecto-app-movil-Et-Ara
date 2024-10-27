@@ -3,6 +3,7 @@ import { SpeechRecognition } from "@capacitor-community/speech-recognition";
 import { createAnimation, Animation } from '@ionic/core';
 import { ModalController } from '@ionic/angular';
 import { QueHaceresService } from 'src/app/servicios/que-haceres.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-agregar-habito-voz',
@@ -28,10 +29,21 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     categoriaItem: ''
   };
 
+  async MensajeError(mensajeHeader: string, mensajeSubHeader: string, mensajeError: string) {
+    const alert = await this.alerta.create({
+      header: mensajeHeader,
+      subHeader: mensajeSubHeader,
+      message: mensajeError,
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
+
   constructor(
     public modalControlador: ModalController, 
     private changeDetectorRef: ChangeDetectorRef, 
-    private queHaceresService: QueHaceresService
+    private queHaceresService: QueHaceresService,
+    public alerta: AlertController
   ) {
     SpeechRecognition.requestPermissions();
   }
@@ -112,6 +124,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       this.fechaHabito = fecha.toISOString();
       console.log("Fecha convertida y guardada: ", this.fechaHabito);
     } else {
+      this.MensajeError("ERROR","Error de formato fecha","Por favor, introduce la fecha en el formato 'DD de mes a las HH:MM'. Ejemplo: '10 de octubre a las 22:30'. ");
       console.log("No se pudo interpretar la fecha de voz.");
     }
 }
@@ -121,25 +134,25 @@ export class AgregarHabitoVozPage implements AfterViewInit {
   validarYGuardar() {
     // Verificar que cada campo esté lleno
     if (!this.nombreHabito) {
-        alert("Por favor, ingresa el Nombre del Hábito.");
+        this.MensajeError("ERROR","Nombre de Hábito vacío.","Por favor, ingresa el Nombre del Hábito nuevamente.");
         this.campoActivo = 0;
         return;
     }
     
     if (!this.prioridadHabito) {
-        alert("Por favor, ingresa una Prioridad.");
+        this.MensajeError("ERROR","Prioridad de Hábito vacío.","Por favor, ingresa la Prioridad del Hábito nuevamente.");
         this.campoActivo = 1;
         return;
     }
     
     if (!this.categoriaHabito) {
-        alert("Por favor, ingresa una Categoría.");
+        this.MensajeError("ERROR","Categoría de Hábito vacío.","Por favor, ingresa la Categoría del Hábito nuevamente.");
         this.campoActivo = 2;
         return;
     }
     
     if (!this.fechaHabito) {
-        alert("Por favor, ingresa una Fecha de Vencimiento.");
+        this.MensajeError("ERROR","Fecha de Vencimiento vacío.","Por favor, ingresa la Fecha de Vencimiento del Hábito nuevamente.");
         this.campoActivo = 3;
         return;
     }
@@ -165,10 +178,10 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     } else {
         // Mensaje y campo activo para valores inválidos en Prioridad o Categoría
         if (!prioridadValida) {
-            alert("Por favor, ingresa una Prioridad válida (Alta, Media, Baja).");
+            this.MensajeError("ERROR","Prioridad Inválida","Por favor, ingresa una Prioridad válida (Alta, Media, Baja).");
             this.campoActivo = 1;
         } else if (!categoriaValida) {
-            alert("Por favor, ingresa una Categoría válida (Trabajo, Personal, Casa).");
+            this.MensajeError("ERROR","Categoría Inválida","Por favor, ingresa una Categoría válida (Trabajo, Personal, Casa).");
             this.campoActivo = 2;
         }
     }
