@@ -16,7 +16,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
   fechaHabito: string = new Date().toISOString();
   prioridadHabito: string = "";
   categoriaHabito: string = "";
-  campoActivo: number = 0; // 0: Nombre, 1: Prioridad, 2: Fecha, 3: Categoría
+  campoActivo: number = 0; // 0: Nombre, 1: Prioridad, 2: Categoría, 3: Fecha
 
   objetoHabito: { nombreItem: string, fechaItem: string, prioridadItem: string, categoriaItem: string } = {
     nombreItem: '', 
@@ -85,8 +85,8 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
   // Validar y guardar al completar todos los campos
   validarYGuardar() {
-    const prioridadValida = ['Alta', 'Media', 'Baja'].includes(this.prioridadHabito);
-    const categoriaValida = ['Trabajo', 'Personal', 'Casa'].includes(this.categoriaHabito);
+    const prioridadValida = ['Alta', 'Media', 'Baja','alta', 'media', 'baja',].includes(this.prioridadHabito);
+    const categoriaValida = ['Trabajo', 'Personal', 'Casa','trabajo', 'personal', 'casa'].includes(this.categoriaHabito);
 
     if (prioridadValida && categoriaValida) {
       this.objetoHabito = {
@@ -101,7 +101,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       this.quitar();  // Cierra el modal
     } else {
       alert("Por favor, ingresa valores válidos para Prioridad y Categoría.");
-      this.campoActivo = 0;  // Reinicia al primer campo
+      this.campoActivo = 1;  // Reinicia al primer campo
     }
   }
 
