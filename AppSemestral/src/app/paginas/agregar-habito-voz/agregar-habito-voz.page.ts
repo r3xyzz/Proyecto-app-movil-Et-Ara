@@ -89,7 +89,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       julio: 6, agosto: 7, septiembre: 8, octubre: 9, noviembre: 10, diciembre: 11
     };
 
-    const regexFecha = /(\d{1,2}) de (\w+) (\d{1,2}) (\d{2})/i;
+    const regexFecha = /(\d{1,2}) de (\w+)(?: a las)? (\d{1,2}) (\d{2})/i;
     const match = textoFecha.match(regexFecha);
 
     if (match) {
@@ -127,7 +127,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
       const uid = `habito_${this.nombreHabito}_${this.fechaHabito}`;
       console.log("UID: ",uid);
-      console.log("*objetoHabito:* ",this.objetoHabito);
+      console.log("*PRIORIDAD HABITO:* ",this.prioridadHabito);
       this.queHaceresService.agregarHabito(uid, this.objetoHabito);
       
       this.quitar();  // Cierra el modal
