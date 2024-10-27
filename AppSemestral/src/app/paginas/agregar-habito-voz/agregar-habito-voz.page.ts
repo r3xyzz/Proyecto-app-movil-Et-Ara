@@ -114,28 +114,61 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
   // Validar y guardar al completar todos los campos
   validarYGuardar() {
-    const prioridadValida = ['Alta', 'Media', 'Baja','alta', 'media', 'baja',].includes(this.prioridadHabito);
-    const categoriaValida = ['Trabajo', 'Personal', 'Casa','trabajo', 'personal', 'casa'].includes(this.categoriaHabito);
+    // Verificar que cada campo esté lleno
+    if (!this.nombreHabito) {
+        alert("Por favor, ingresa el Nombre del Hábito.");
+        this.campoActivo = 0;
+        return;
+    }
+    
+    if (!this.prioridadHabito) {
+        alert("Por favor, ingresa una Prioridad.");
+        this.campoActivo = 1;
+        return;
+    }
+    
+    if (!this.categoriaHabito) {
+        alert("Por favor, ingresa una Categoría.");
+        this.campoActivo = 2;
+        return;
+    }
+    
+    if (!this.fechaHabito) {
+        alert("Por favor, ingresa una Fecha de Vencimiento.");
+        this.campoActivo = 3;
+        return;
+    }
+
+    // Validar valores específicos de Prioridad y Categoría
+    const prioridadValida = ['alta', 'medio', 'bajo', 'alto', 'media', 'baja'].includes(this.prioridadHabito.toLowerCase());
+    const categoriaValida = ['trabajo', 'personal', 'casa'].includes(this.categoriaHabito.toLowerCase());
 
     if (prioridadValida && categoriaValida) {
-      this.objetoHabito = {
-        nombreItem: this.nombreHabito,
-        fechaItem: this.fechaHabito,
-        prioridadItem: this.prioridadHabito,
-        categoriaItem: this.categoriaHabito,
-      };
+        this.objetoHabito = {
+            nombreItem: this.nombreHabito,
+            fechaItem: this.fechaHabito,
+            prioridadItem: this.prioridadHabito,
+            categoriaItem: this.categoriaHabito,
+        };
 
-      const uid = `habito_${this.nombreHabito}_${this.fechaHabito}`;
-      console.log("UID: ",uid);
-      console.log("*PRIORIDAD HABITO:* ",this.prioridadHabito);
-      this.queHaceresService.agregarHabito(uid, this.objetoHabito);
-      
-      this.quitar();  // Cierra el modal
+        const uid = `habito_${this.nombreHabito}_${this.fechaHabito}`;
+        console.log("UID: ", uid);
+        console.log("*PRIORIDAD HABITO:* ", this.prioridadHabito);
+        this.queHaceresService.agregarHabito(uid, this.objetoHabito);
+
+        this.quitar();  // Cierra el modal
     } else {
-      alert("Por favor, ingresa valores válidos para Prioridad y Categoría.");
-      this.campoActivo = 1;  // Reinicia al primer campo
+        // Mensaje y campo activo para valores inválidos en Prioridad o Categoría
+        if (!prioridadValida) {
+            alert("Por favor, ingresa una Prioridad válida (Alta, Media, Baja).");
+            this.campoActivo = 1;
+        } else if (!categoriaValida) {
+            alert("Por favor, ingresa una Categoría válida (Trabajo, Personal, Casa).");
+            this.campoActivo = 2;
+        }
     }
-  }
+}
+
 
   async quitar() {
     await this.modalControlador.dismiss(this.objetoHabito);
