@@ -55,7 +55,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       console.log("++VALOR CAMPO ACTIVO++: ", this.campoActivo);
       this.grabando = true;
       SpeechRecognition.start({
-        popup: false,
+        popup: true,
         partialResults: true,
         language: "es-ES",
       });
