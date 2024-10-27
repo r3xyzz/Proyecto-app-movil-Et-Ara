@@ -70,7 +70,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     // Cambia al siguiente campo cuando se detiene el reconocimiento
     this.campoActivo++;
     
-    if (this.campoActivo = 3){
+    if (this.campoActivo === 3){
       const regexFecha = /(\d{1,2}) de (\w+)(?: a las )?(\d{1,2}):(\d{2})/i;
       const match = this.textoFechaDisplay.match(regexFecha);
 
