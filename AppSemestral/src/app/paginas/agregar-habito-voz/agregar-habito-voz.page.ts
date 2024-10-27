@@ -14,7 +14,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
   nombreHabito: string = "";
 
-  fechaHabito: string = new Date().toISOString();
+  fechaHabito: string = "";
   textoFechaDisplay: string = ""; // Nueva variable para mostrar el texto de la fecha
 
   prioridadHabito: string = "";
