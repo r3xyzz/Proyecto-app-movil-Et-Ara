@@ -96,6 +96,8 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       };
 
       const uid = `habito_${this.nombreHabito}_${this.fechaHabito}`;
+      console.log("UID: ",uid);
+      console.log("*objetoHabito:* ",this.objetoHabito);
       this.queHaceresService.agregarHabito(uid, this.objetoHabito);
       
       this.quitar();  // Cierra el modal
