@@ -13,7 +13,10 @@ export class AgregarHabitoVozPage implements AfterViewInit {
   grabando = false;
 
   nombreHabito: string = "";
-  fechaHabito: string = new Date().toISOString();
+
+  fechaHabito: string = "";
+  textoFecha: string = ""; // Nueva variable para mostrar el texto de la fecha
+
   prioridadHabito: string = "";
   categoriaHabito: string = "";
   campoActivo: number = 0; // 0: Nombre, 1: Prioridad, 2: Categoría, 3: Fecha
@@ -105,6 +108,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       fecha.setMinutes(minuto);
 
       this.fechaHabito = fecha.toISOString();
+      this.textoFecha = textoFecha; // Guardar el texto de la fecha
       console.log("Fecha convertida y guardada: ", this.fechaHabito);
     } else {
       console.log("No se pudo interpretar la fecha de voz.");
