@@ -7,14 +7,14 @@
     <ion-card-header>
 
       <ion-card-subtitle 
-      [style.color]="item.value.prioridadItem.toLowerCase() === 'alto' || item.value.prioridadItem.toLowerCase() === 'alta' ? 'red' : (item.value.prioridadItem.toLowerCase() === 'bajo' ? 'green' : 'orange') ">
+      [style.color]="item.value.prioridadItem.toLowerCase() === 'alto' || item.value.prioridadItem.toLowerCase() === 'alta' ? 'red' : (item.value.prioridadItem.toLowerCase() === 'bajo' || item.value.prioridadItem.toLowerCase() === 'baja' ? 'green' : 'orange') ">
       {{item.value.categoriaItem}}
       </ion-card-subtitle>
 
       <ion-item>
         <ion-icon *ngIf="item.value.prioridadItem.toLowerCase() === 'alto' || item.value.prioridadItem.toLowerCase() === 'alta'" color="danger" size="small" name="ellipse"></ion-icon>
-        <ion-icon *ngIf="item.value.prioridadItem.toLowerCase() === 'medio'" color="warning" size="small" name="ellipse"></ion-icon>
-        <ion-icon *ngIf="item.value.prioridadItem.toLowerCase() === 'bajo'" color="success" size="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.value.prioridadItem.toLowerCase() === 'medio' || item.value.prioridadItem.toLowerCase() === 'media'"  color="warning" size="small" name="ellipse"></ion-icon>
+        <ion-icon *ngIf="item.value.prioridadItem.toLowerCase() === 'bajo' || item.value.prioridadItem.toLowerCase() === 'baja'" color="success" size="small" name="ellipse"></ion-icon>
         <ion-label>{{ item.value.nombreItem }}</ion-label>
       </ion-item>
 
