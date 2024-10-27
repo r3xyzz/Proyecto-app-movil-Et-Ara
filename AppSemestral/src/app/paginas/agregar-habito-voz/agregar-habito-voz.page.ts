@@ -65,14 +65,6 @@ export class AgregarHabitoVozPage implements AfterViewInit {
   async pararReconocimiento() {
     this.grabando = false;
     console.log("**VALOR CAMPO ACTIVO antes DE PARAR SP-REC**: ", this.campoActivo);
-    
-    if (this.campoActivo === 3){
-      const regexFecha = /(\d{1,2}) de (\w+)(?: a las )?(\d{1,2}):(\d{2})/i;
-      const match = this.textoFechaDisplay.match(regexFecha);
-      if(match===null){
-        this.MensajeError("ERROR","Error de formato fecha","Por favor, introduce la fecha en el formato 'DD de mes a las HH:MM'.\nEjemplo: '10 de octubre a las 22:30'. ");
-      }
-    }
 
     // Cambia al siguiente campo cuando se detiene el reconocimiento
     this.campoActivo++;
@@ -158,6 +150,12 @@ export class AgregarHabitoVozPage implements AfterViewInit {
         this.MensajeError("ERROR","Fecha de Vencimiento vacío.","Por favor, ingresa la Fecha de Vencimiento del Hábito nuevamente.");
         this.campoActivo = 3;
         return;
+    }else{
+      const regexFecha = /(\d{1,2}) de (\w+)(?: a las )?(\d{1,2}):(\d{2})/i;
+      const match = this.textoFechaDisplay.match(regexFecha);
+      if(match===null){
+        this.MensajeError("ERROR","Error de formato fecha","Por favor, introduce la fecha en el formato 'DD de mes a las HH:MM'.\nEjemplo: '10 de octubre a las 22:30'. ");
+      }
     }
 
     // Validar valores específicos de Prioridad y Categoría
