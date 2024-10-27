@@ -61,7 +61,6 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       this.validarYGuardar();
     }
     await SpeechRecognition.stop();
-    console.log("**VALOR CAMPO ACTIVO después DE PARAR SP-REC**: ", this.campoActivo);
   }
 
   // Actualiza el campo activo basado en el resultado de reconocimiento de voz
@@ -74,10 +73,10 @@ export class AgregarHabitoVozPage implements AfterViewInit {
         this.prioridadHabito = result;
         break;
       case 2:
-        this.fechaHabito = result;
+        this.categoriaHabito = result;
         break;
       case 3:
-        this.categoriaHabito = result;
+        this.fechaHabito = result;
         break;
     }
     this.changeDetectorRef.detectChanges(); // Actualiza la vista
@@ -98,6 +97,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
       const uid = `habito_${this.nombreHabito}_${this.fechaHabito}`;
       this.queHaceresService.agregarHabito(uid, this.objetoHabito);
+      
       this.quitar();  // Cierra el modal
     } else {
       alert("Por favor, ingresa valores válidos para Prioridad y Categoría.");
