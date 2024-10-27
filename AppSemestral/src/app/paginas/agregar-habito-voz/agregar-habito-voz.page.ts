@@ -79,6 +79,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
         this.categoriaHabito = result;
         break;
       case 3:
+        console.log("CASE 3 RESULTADO VOZ: ",result);
         this.convertirTextoAFecha(result);
         break;
     }
@@ -87,6 +88,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
   // Texto a fecha
   convertirTextoAFecha(textoFecha: string) {
+    this.textoFechaDisplay = textoFecha; // Guardar el texto de la fecha
     const meses: { [key: string]: number } = {
       enero: 0, febrero: 1, marzo: 2, abril: 3, mayo: 4, junio: 5,
       julio: 6, agosto: 7, septiembre: 8, octubre: 9, noviembre: 10, diciembre: 11
@@ -108,7 +110,6 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       fecha.setMinutes(minuto);
 
       this.fechaHabito = fecha.toISOString();
-      this.textoFechaDisplay = textoFecha; // Guardar el texto de la fecha
       console.log("Fecha convertida y guardada: ", this.fechaHabito);
     } else {
       console.log("No se pudo interpretar la fecha de voz.");
