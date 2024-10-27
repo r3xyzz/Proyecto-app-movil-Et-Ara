@@ -90,13 +90,8 @@ export class HomePage implements OnInit {
     const modal = await this.modalControlador.create({
       component: AgregarHabitoVozPage
     })
-
     modal.onDidDismiss().then(nuevoObjHabito => {
-      //console.log(nuevoObjHabito.data);
-      //this.listaHaceres.push(nuevoObjHabito.data)
-      //console.log(this.listaHaceres);
-
-
+      this.obtenerHabitos()
     })
     return await modal.present()
   }

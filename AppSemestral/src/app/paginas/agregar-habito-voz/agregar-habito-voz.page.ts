@@ -76,11 +76,41 @@ export class AgregarHabitoVozPage implements AfterViewInit {
         this.categoriaHabito = result;
         break;
       case 3:
-        this.fechaHabito = result;
+        this.convertirTextoAFecha(result);
         break;
     }
     this.changeDetectorRef.detectChanges(); // Actualiza la vista
   }
+
+  // Texto a fecha
+  convertirTextoAFecha(textoFecha: string) {
+    const meses: { [key: string]: number } = {
+      enero: 0, febrero: 1, marzo: 2, abril: 3, mayo: 4, junio: 5,
+      julio: 6, agosto: 7, septiembre: 8, octubre: 9, noviembre: 10, diciembre: 11
+    };
+
+    const regexFecha = /(\d{1,2}) de (\w+) (\d{1,2}) (\d{2})/i;
+    const match = textoFecha.match(regexFecha);
+
+    if (match) {
+      const dia = parseInt(match[1]);
+      const mes = meses[match[2].toLowerCase() as keyof typeof meses];
+      const hora = parseInt(match[3]);
+      const minuto = parseInt(match[4]);
+
+      const fecha = new Date();
+      fecha.setMonth(mes);
+      fecha.setDate(dia);
+      fecha.setHours(hora);
+      fecha.setMinutes(minuto);
+
+      this.fechaHabito = fecha.toISOString();
+      console.log("Fecha convertida y guardada: ", this.fechaHabito);
+    } else {
+      console.log("No se pudo interpretar la fecha de voz.");
+    }
+}
+
 
   // Validar y guardar al completar todos los campos
   validarYGuardar() {
