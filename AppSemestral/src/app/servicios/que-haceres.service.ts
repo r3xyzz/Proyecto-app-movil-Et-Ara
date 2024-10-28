@@ -1,76 +1,117 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueHaceresService {
-
   private historialSubject = new BehaviorSubject<any[]>([]);
-  historial$ = this.historialSubject.asObservable();  // Observable para historial
+  historial$ = this.historialSubject.asObservable(); // Observable para historial
 
+  constructor(
+    private storage: Storage,
+    private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore
+  ) {
+    this.init();
+  }
 
-  constructor(private storage: Storage) {
-    this.init()
-   }
-
-   async init(){
+  async init() {
     await this.storage.create();
-    await this.obtenerHistorialHabitos();
+    await this.obtenerHistorialLocal(); // Cargar historial local al iniciar
   }
 
-  agregarHabito(key:string, value:any){
-    this.storage.set(key, value)
+  // Guardar hábito en Firebase y Storage
+  async agregarHabito(key: string, habit: any) {
+    await this.storage.set(key, habit); // Guardar localmente
+
+    const user = await this.afAuth.currentUser;
+    if (user && navigator.onLine) { // Solo guarda en Firebase si hay conexión
+      await this.firestore.collection(`users/${user.uid}/habits`).doc(key).set(habit);
+      console.log("Hábito guardado en Firebase y localmente");
+    } else {
+      console.log("Hábito guardado solo localmente (sin conexión)");
+    }
   }
 
-  async eliminarHabito(key:string){
-    this.storage.remove(key);
-    await this.obtenerHistorialHabitos();
+  // Obtener hábitos del usuario actual con preferencia por Firebase si hay conexión
+  async obtenerHabitosUsuarioActual() {
+    const user = await this.afAuth.currentUser;
+    if (user && navigator.onLine) {
+      return this.firestore.collection(`users/${user.uid}/habits`).snapshotChanges();
+    } else {
+      console.warn("Sin conexión: obteniendo hábitos del almacenamiento local");
+      return this.obtenerHabitosLocal();
+    }
   }
 
-  obtenerHabitos(){
-    let habitos: any = []
-    this.storage.forEach((key, value, index) => {
-      if (value.startsWith('habito_')){
-        habitos.push({'key':value, 'value':key})
+  // Obtener hábitos desde el almacenamiento local
+  async obtenerHabitosLocal() {
+    let habitos: any[] = [];
+    await this.storage.forEach((value, key) => {
+      if (key.startsWith('habito_')) {
+        habitos.push({ key, value });
       }
     });
-    return habitos
+    return habitos;
   }
 
+  // Eliminar hábito de Firebase y Storage
+  async eliminarHabito(key: string) {
+    await this.storage.remove(key); // Eliminar localmente
 
+    const user = await this.afAuth.currentUser;
+    if (user && navigator.onLine) {
+      await this.firestore.collection(`users/${user.uid}/habits`).doc(key).delete();
+      console.log("Hábito eliminado de Firebase y almacenamiento local");
+    } else {
+      console.log("Hábito eliminado solo localmente (sin conexión)");
+    }
+  }
 
-
-  // Mover hábito a historial
-  async moverAHistorial(key: string, value: any, estado: string) {
-    // Agregar al historial (con el estado completado/cancelado)
-
-    value.estado = estado;  // Agregar el estado al valor
-    value.fechaMovimiento = new Date();  // Almacenar la fecha en la que se movió al historial
+  // Mover hábito a historial en Firebase y Storage
+  async moverAHistorial(key: string, habit: any, estado: string) {
+    habit.estado = estado;
+    habit.fechaMovimiento = new Date();
 
     let historialKey = `historial_${key}`;
-    await this.storage.set(historialKey, value);
-    
-    console.log("STORAGE historialKey:",this.storage.get(historialKey))
-    console.log("STORAGE value:",this.storage.get(value))
+    await this.storage.set(historialKey, habit); // Guardar en el historial local
 
-    // Eliminar el hábito activo
-    await this.eliminarHabito(key);
-    await this.obtenerHistorialHabitos();
+    const user = await this.afAuth.currentUser;
+    if (user && navigator.onLine) {
+      await this.firestore.collection(`users/${user.uid}/historial`).doc(historialKey).set(habit);
+      console.log("Hábito movido al historial en Firebase y almacenamiento local");
+    } else {
+      console.log("Hábito movido al historial solo localmente (sin conexión)");
+    }
+
+    await this.eliminarHabito(key); // Eliminar del listado de hábitos
+    await this.obtenerHistorialLocal(); // Actualizar historial local
   }
 
+  // Obtener historial desde Firebase si hay conexión, o desde Storage si no la hay
+  async obtenerHistorialUsuarioActual() {
+    const user = await this.afAuth.currentUser;
+    if (user && navigator.onLine) {
+      return this.firestore.collection(`users/${user.uid}/historial`).snapshotChanges();
+    } else {
+      console.warn("Sin conexión: obteniendo historial del almacenamiento local");
+      return this.obtenerHistorialLocal();
+    }
+  }
 
-  // Obtener hábitos del historial
-  async obtenerHistorialHabitos() {
+  // Obtener historial local
+  async obtenerHistorialLocal() {
     let historialHabitos: any[] = [];
-    await this.storage.forEach((key, value) => {
-      if (value.startsWith('historial_')) {
-        historialHabitos.push({ 'key': value, 'value': key });
+    await this.storage.forEach((value, key) => {
+      if (key.startsWith('historial_')) {
+        historialHabitos.push({ key, value });
       }
     });
-    this.historialSubject.next(historialHabitos);  // Emitir el historial actualizado
+    this.historialSubject.next(historialHabitos); // Emitir historial actualizado
+    return historialHabitos;
   }
-
-  
 }
