@@ -2,6 +2,19 @@
 
 <ion-content [fullscreen]="true">
 
+  <!-- Popup con ion-card -->
+  <ion-card *ngIf="popupVisible" class="popup-card">
+    <ion-card-header>
+      <ion-button fill="clear" size="small" (click)="cerrarPopup()" class="close-button">
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-button>
+      <ion-card-title style="color:white; font-size:17px;">Consejo Random</ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="color:whitesmoke; font-size:15px;">
+      {{consejoRetornadoAPI}}
+    </ion-card-content>
+  </ion-card>
+
 
   <ion-card *ngFor="let item of listaHaceres ; let i = index" class="ion-margin">
     <ion-card-header>

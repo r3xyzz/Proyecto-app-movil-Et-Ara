@@ -5,12 +5,32 @@ import { AgregarHabitoVozPage } from '../paginas/agregar-habito-voz/agregar-habi
 import { ApiService } from 'src/app/servicios/api.service';
 import { QueHaceresService } from '../servicios/que-haceres.service';
 
+
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  consejoRetornadoAPI: string = '';
+  popupVisible: boolean = true; // Variable para mostrar/ocultar el popup
+
+  cerrarPopup() {
+    this.popupVisible = false;
+  }
+
+
+  // Consumo API externo (para tu funcionalidad adicional)
+  initApi() {
+    this.apiservice.solicitud().subscribe((data: any) => {
+      console.log('Datos recibidos ', data);
+      console.log("*DATA.ADVICE:",data.slip.advice);
+      this.consejoRetornadoAPI = data.slip.advice;
+    });
+  }
+
+
   listaHaceres: { 
     key: string; 
     value: { 
@@ -79,13 +99,6 @@ export class HomePage implements OnInit {
     console.log("value:", value);
     console.log("estado:", estado);
     this.loadHabitos(); // Refresca la lista de hábitos activos
-  }
-
-  // Consumo API externo (para tu funcionalidad adicional)
-  initApi() {
-    this.apiservice.solicitud().subscribe((data: any) => {
-      console.log('Datos recibidos ', data);
-    });
   }
 
   // Función para agregar un hábito usando voz
