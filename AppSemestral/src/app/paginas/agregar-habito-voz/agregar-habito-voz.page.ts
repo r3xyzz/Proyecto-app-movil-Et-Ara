@@ -157,8 +157,9 @@ export class AgregarHabitoVozPage implements AfterViewInit {
       const match = this.textoFechaDisplay.match(regexFecha);
       if(match===null){
         this.MensajeError("ERROR","Error de formato fecha","Por favor, introduce la fecha en el formato 'DD de mes a las HH:MM'.\nEjemplo: '10 de octubre a las 22:30'. ");
+        return;
       }
-      return;
+      
     }
 
     // Validar valores específicos de Prioridad y Categoría
