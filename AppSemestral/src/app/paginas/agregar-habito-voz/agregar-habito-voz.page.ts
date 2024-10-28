@@ -149,14 +149,16 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     if (!this.textoFechaDisplay) {
         this.MensajeError("ERROR","Fecha de Vencimiento vacío.","Por favor, ingresa la Fecha de Vencimiento del Hábito nuevamente.");
         this.campoActivo = 3;
-        if(this.textoFechaDisplay.length > 0){
-          const regexFecha = /(\d{1,2}) de (\w+)(?: a las )?(\d{1,2}):(\d{2})/i;
-          const match = this.textoFechaDisplay.match(regexFecha);
-          if(match===null){
-            this.MensajeError("ERROR","Error de formato fecha","Por favor, introduce la fecha en el formato 'DD de mes a las HH:MM'.\nEjemplo: '10 de octubre a las 22:30'. ");
-          }
-        }
         return;
+    }
+
+    if(this.textoFechaDisplay.length > 0){
+      const regexFecha = /(\d{1,2}) de (\w+)(?: a las )?(\d{1,2}):(\d{2})/i;
+      const match = this.textoFechaDisplay.match(regexFecha);
+      if(match===null){
+        this.MensajeError("ERROR","Error de formato fecha","Por favor, introduce la fecha en el formato 'DD de mes a las HH:MM'.\nEjemplo: '10 de octubre a las 22:30'. ");
+      }
+      return;
     }
 
     // Validar valores específicos de Prioridad y Categoría
