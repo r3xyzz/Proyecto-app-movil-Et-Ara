@@ -23,10 +23,15 @@ export class HomePage implements OnInit {
 
   // Consumo API externo (para tu funcionalidad adicional)
   initApi() {
-    this.apiservice.solicitud().subscribe((data: any) => {
-      console.log('Datos recibidos ', data);
-      console.log("*DATA.ADVICE:",data.slip.advice);
-      this.consejoRetornadoAPI = data.slip.advice;
+    this.apiservice.solicitud().subscribe(async (data: any) => {
+      if (data) {
+        // Si la solicitud es exitosa, muestra el consejo y guárdalo localmente
+        this.consejoRetornadoAPI = data.slip.advice;
+        await this.apiservice.guardarConsejoLocal(this.consejoRetornadoAPI);
+      } else {
+        // Si falla, recupera el último consejo almacenado
+        this.consejoRetornadoAPI = await this.apiservice.obtenerConsejoLocal() || "No hay consejos disponibles actualmente.";
+      }
     });
   }
 
