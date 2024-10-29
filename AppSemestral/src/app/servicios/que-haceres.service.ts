@@ -85,20 +85,22 @@ export class QueHaceresService {
 
   // Mover hábito a historial en Firebase y Storage
   async moverAHistorial(key: string, habit: any, estado: string) {
+    const user = await this.afAuth.currentUser;
+    if (!user) return;  // Verifica que haya usuario
+  
     habit.estado = estado;
     habit.fechaMovimiento = new Date();
-
-    let historialKey = `historial_${key}`;
-    await this.storage.set(historialKey, habit); // Guardar en el historial local
-
-    const user = await this.afAuth.currentUser;
-    if (user && navigator.onLine) {
+    const historialKey = `historial_${user.uid}_${key}`; // Incluir UID en la clave
+  
+    await this.storage.set(historialKey, habit); // Guardar en historial local con UID
+  
+    if (navigator.onLine) {
       await this.firestore.collection(`users/${user.uid}/historial`).doc(historialKey).set(habit);
       console.log("Hábito movido al historial en Firebase y almacenamiento local");
     } else {
       console.log("Hábito movido al historial solo localmente (sin conexión)");
     }
-
+  
     await this.eliminarHabito(key); // Eliminar del listado de hábitos
     await this.actualizarHistorial(); // Actualizar historial local
   }
@@ -118,13 +120,20 @@ export class QueHaceresService {
 
   // Obtener historial local
   async obtenerHistorialLocal() {
+    const user = await this.afAuth.currentUser;
+    if (!user) return []; // Si no hay usuario autenticado, retorna un array vacío
+  
+    const uid = user.uid;
     let historialHabitos: any[] = [];
     await this.storage.forEach((value, key) => {
-      if (key.startsWith('historial_')) {
+      if (key.startsWith(`historial_${uid}_`)) {  // Filtrar por UID en la clave
         historialHabitos.push({ key, value });
       }
     });
     this.historialSubject.next(historialHabitos); // Emitir historial actualizado
     return historialHabitos;
   }
+
+
+
 }
