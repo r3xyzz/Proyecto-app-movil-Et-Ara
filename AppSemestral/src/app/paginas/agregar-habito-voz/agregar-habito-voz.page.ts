@@ -50,7 +50,7 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
   async empezarReconocimiento() {
     const permissionStatus = await SpeechRecognition.checkPermissions();
-    console.log("Estado de permisos:", permissionStatus);
+    console.log("Estado de permisos:", JSON.stringify(permissionStatus, null, 2));
 
     const { available } = await SpeechRecognition.available();
 
