@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators'; // Importar tap de RxJS
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,14 @@ export class QueHaceresService {
     return habitos;
   }
 
+
+  // Actualiza el historial local y emite el nuevo historial
+  private async actualizarHistorial() {
+    const historial = await this.obtenerHistorialLocal();
+    this.historialSubject.next(historial); // Emitir historial actualizado
+  }
+
+
   // Eliminar hábito de Firebase y Storage
   async eliminarHabito(key: string) {
     await this.storage.remove(key); // Eliminar localmente
@@ -70,6 +79,8 @@ export class QueHaceresService {
     } else {
       console.log("Hábito eliminado solo localmente (sin conexión)");
     }
+
+    await this.actualizarHistorial(); // Actualizar historial después de eliminar
   }
 
   // Mover hábito a historial en Firebase y Storage
@@ -89,14 +100,16 @@ export class QueHaceresService {
     }
 
     await this.eliminarHabito(key); // Eliminar del listado de hábitos
-    await this.obtenerHistorialLocal(); // Actualizar historial local
+    await this.actualizarHistorial(); // Actualizar historial local
   }
 
   // Obtener historial desde Firebase si hay conexión, o desde Storage si no la hay
   async obtenerHistorialUsuarioActual() {
     const user = await this.afAuth.currentUser;
     if (user && navigator.onLine) {
-      return this.firestore.collection(`users/${user.uid}/historial`).snapshotChanges();
+      return this.firestore.collection(`users/${user.uid}/historial`).snapshotChanges().pipe(
+        tap(() => this.actualizarHistorial()) // Actualizar historial cuando hay cambios en Firebase
+      );
     } else {
       console.warn("Sin conexión: obteniendo historial del almacenamiento local");
       return this.obtenerHistorialLocal();
