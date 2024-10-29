@@ -50,10 +50,27 @@ export class AgregarHabitoVozPage implements AfterViewInit {
 
   async empezarReconocimiento() {
     const permissionStatus = await SpeechRecognition.checkPermissions();
-    console.log("Estado de permisos:", JSON.stringify(permissionStatus, null, 2));
-
+  
+    // Verifica el estado del permiso de reconocimiento de voz
+    if (permissionStatus.speechRecognition !== 'granted') {
+      // Si no tiene permiso, solicitamos nuevamente
+      const nuevoPermiso = await SpeechRecognition.requestPermissions();
+  
+      // Verificamos nuevamente el estado del permiso después de la solicitud
+      const nuevoEstado = await SpeechRecognition.checkPermissions();
+      if (nuevoEstado.speechRecognition !== 'granted') {
+        // Si aún no se otorgan los permisos, mostramos una alerta
+        this.MensajeError(
+          "Permisos requeridos",
+          "Permiso de micrófono no concedido",
+          "Por favor, concede permisos de micrófono para utilizar el reconocimiento de voz."
+        );
+        return; // Salimos de la función ya que no se puede iniciar el reconocimiento
+      }
+    }
+  
     const { available } = await SpeechRecognition.available();
-
+  
     if (available) {
       console.log("++VALOR CAMPO ACTIVO++: ", this.campoActivo);
       this.grabando = true;
@@ -62,17 +79,16 @@ export class AgregarHabitoVozPage implements AfterViewInit {
         partialResults: true,
         language: "es-ES",
       });
-    }else{
+    } else {
       // Si el reconocimiento no está disponible, mostrar un mensaje de error
       this.MensajeError(
-        "ERROR: Reconocimiento de voz no disponible",
+        "Reconocimiento de voz no disponible",
         "No se puede acceder a la función de reconocimiento de voz",
         "Asegúrate de que tu dispositivo permite el reconocimiento de voz y que está habilitado."
       );
-
-      SpeechRecognition.requestPermissions();
     }
   }
+  
 
   async pararReconocimiento() {
     this.grabando = false;
