@@ -49,6 +49,9 @@ export class AgregarHabitoVozPage implements AfterViewInit {
   }
 
   async empezarReconocimiento() {
+    const permissionStatus = await SpeechRecognition.checkPermissions();
+    console.log("Estado de permisos:", permissionStatus);
+
     const { available } = await SpeechRecognition.available();
 
     if (available) {
@@ -59,6 +62,15 @@ export class AgregarHabitoVozPage implements AfterViewInit {
         partialResults: true,
         language: "es-ES",
       });
+    }else{
+      // Si el reconocimiento no está disponible, mostrar un mensaje de error
+      this.MensajeError(
+        "ERROR: Reconocimiento de voz no disponible",
+        "No se puede acceder a la función de reconocimiento de voz",
+        "Asegúrate de que tu dispositivo permite el reconocimiento de voz y que está habilitado."
+      );
+
+      SpeechRecognition.requestPermissions();
     }
   }
 
@@ -197,6 +209,19 @@ export class AgregarHabitoVozPage implements AfterViewInit {
   async quitar() {
     await this.modalControlador.dismiss(this.objetoHabito);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // ANIMACIÓN DE WAVES
   @ViewChildren('line') waveLines!: QueryList<any>; // Acceder a las líneas de la wave
