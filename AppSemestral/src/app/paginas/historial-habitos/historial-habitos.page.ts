@@ -40,13 +40,6 @@ export class HistorialHabitosPage implements OnInit {
     }).catch(error => console.error("Error al cargar historial de hábitos:", error));
   }
 
-  /*
-  async obtenerHistorialHabitos() {
-    this.historialHaceres = await this.QueHaceresServicio.obtenerHistorialHabitos();
-
-  }
-  */
-
   // Eliminar hábito del historial
   eliminar(key: string) {
     this.QueHaceresServicio.eliminarHabito(key); // Refresca automáticamente gracias a la suscripción
