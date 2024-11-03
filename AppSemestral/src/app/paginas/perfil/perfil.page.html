@@ -17,8 +17,9 @@
     <ion-input [(ngModel)]="nombre"></ion-input>
   </ion-item>
   <ion-button expand="full" (click)="guardarNombre()">Guardar Nombre</ion-button>
+  
+  <!-- Metas personales POR IMPLEMENTAR A FUTURO
 
-  <!-- Metas personales -->
   <ion-item-divider color="light">
     <ion-label>Metas Personales</ion-label>
   </ion-item-divider>
@@ -26,29 +27,29 @@
     <ion-label>Mejorar la productividad</ion-label>
   </ion-item>
 
-  <!-- Cambio de Zona Horaria y Fecha Actual -->
+  --> 
+  
+  <!-- Fecha de ultima actividad en la app -->
   <ion-item-divider color="light">
-    <ion-label>Cambio de Zona Horaria y Fecha Actual</ion-label>
+    <ion-label>Fecha de Ultima Actividad en la App</ion-label>
   </ion-item-divider>
   <ion-item>
-    <ion-label>Zona Horaria</ion-label>
-    <ion-select [(ngModel)]="zonaHoraria" (ionChange)="cambiarZonaHoraria()" interface="popover">
-      <ion-select-option value="GMT-3">Zona horaria de Santiago (GMT-3)</ion-select-option>
-      <ion-select-option value="GMT-5">Isla de Pascua (GMT-5)</ion-select-option>
-      <ion-select-option value="GMT-3-Punta">Punta Arenas (GMT-3)</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label>Fecha Actual</ion-label>
+    <ion-label>Última actividad registrada</ion-label>
     <ion-note slot="end">{{ currentDate }}</ion-note>
   </ion-item>
+  
+  <!-- Última actividad POR IMPLEMENTAR A FUTURO
 
-  <!-- Última actividad -->
   <ion-item-divider color="light">
     <ion-label>Última Actividad Registrada</ion-label>
   </ion-item-divider>
   <ion-item>
     <ion-label>Última Actividad</ion-label>
-    <ion-note slot="end">{{ fechaUltimaActividad }}</ion-note> <!-- Ahora solo muestra la fecha -->
+    <ion-note slot="end">{{ fechaUltimaActividad }}</ion-note>
   </ion-item>
-</ion-content>
+
+  -->
+  
+  <!-- Botón de reversa -->
+  <app-boton-reversa></app-boton-reversa>
+  </ion-content>
