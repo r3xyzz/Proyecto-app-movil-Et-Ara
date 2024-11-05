@@ -226,19 +226,6 @@ export class AgregarHabitoVozPage implements AfterViewInit {
     await this.modalControlador.dismiss(this.objetoHabito);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   // ANIMACIÓN DE WAVES
   @ViewChildren('line') waveLines!: QueryList<any>; // Acceder a las líneas de la wave
   waveLinesArray: Animation[] = [];
