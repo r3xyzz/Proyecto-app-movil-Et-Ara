@@ -1,5 +1,6 @@
 import { QueHaceresService } from 'src/app/servicios/que-haceres.service';
 import { Component, OnInit } from '@angular/core';
+import { Timestamp } from 'firebase/firestore'; 
 
 @Component({
   selector: 'app-historial-habitos',
@@ -9,6 +10,10 @@ import { Component, OnInit } from '@angular/core';
 export class HistorialHabitosPage implements OnInit {
   constructor(public QueHaceresServicio: QueHaceresService) {
   }
+  toDate(timestamp: any): Date {
+    return timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
+  }
+  
 
   historialHaceres: any[] = [];
   today: Date = new Date();  // Fecha actual para comparar con los hábitos

@@ -16,7 +16,7 @@
     </ion-card-header>
     <ion-card-content>
       <div>
-        <ion-label>Vencimiento en {{ item.value.fechaItem | date:'fullDate' }}</ion-label>
+        <ion-label>Vencimiento en {{ toDate(item.value.fechaItem)  | date:'fullDate' }}</ion-label>
       </div>
 
 
