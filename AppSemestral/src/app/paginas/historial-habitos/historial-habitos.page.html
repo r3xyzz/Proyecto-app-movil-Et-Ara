@@ -21,11 +21,11 @@
 
 
       <!-- Mostrar si fue completado, cancelado o vencido -->
-      <ion-label *ngIf="item.value.estado === 'completado'" color="success">Completado el {{ item.value.fechaMovimiento | date:'fullDate' }}</ion-label>
-      <ion-label *ngIf="item.value.estado === 'cancelado'" color="danger">Cancelado el {{ item.value.fechaMovimiento | date:'fullDate' }}</ion-label>
+      <ion-label *ngIf="item.value.estado === 'completado'" color="success">Completado el {{ toDate(item.value.fechaMovimiento) | date:'fullDate' }}</ion-label>
+      <ion-label *ngIf="item.value.estado === 'cancelado'" color="danger">Cancelado el {{ toDate(item.value.fechaMovimiento) | date:'fullDate' }}</ion-label>
       
       <!-- Mostrar si el hábito venció -->
-      <ion-label *ngIf="item.value.fechaItem < today && !item.value.estado">Vencido el {{ item.value.fechaItem | date:'fullDate' }}</ion-label>
+      <ion-label *ngIf="item.value.fechaItem < today && !item.value.estado">Vencido el {{ toDate(item.value.fechaItem) | date:'fullDate' }}</ion-label>
     </ion-card-content>
 
     
