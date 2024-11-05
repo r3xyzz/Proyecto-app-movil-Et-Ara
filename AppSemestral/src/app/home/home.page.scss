@@ -18,7 +18,8 @@ ion-content{
   .popup-card {
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #4d8dff
+    background-color: #4d8dff;
+    position: relative;
   }
   
   .close-button {
@@ -27,7 +28,10 @@ ion-content{
     right: 5px;
     font-size: 17px;
     color: white;
+    z-index: 10; /* Asegura que el botón esté en la parte superior */
+    pointer-events: auto; /* Asegura que el botón pueda recibir clics */
   }
+  
   
 
 
