@@ -5,7 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilPageRoutingModule } from './perfil-routing.module';
 import { PerfilPage } from './perfil.page';
 import { ShareModule } from 'src/app/modulos/share/share.module';
+/*
 import { BotonReversaModule } from 'src/app/componentes/boton-reversa/boton-reversa.module';
+*/
 
 @NgModule({
   imports: [
@@ -14,7 +16,9 @@ import { BotonReversaModule } from 'src/app/componentes/boton-reversa/boton-reve
     IonicModule,
     PerfilPageRoutingModule,
     ShareModule,
+    /*
     BotonReversaModule
+    */
   ],
   declarations: [PerfilPage]
 })

@@ -5,7 +5,10 @@ import { IonicModule } from '@ionic/angular';
 import { HistorialHabitosPageRoutingModule } from './historial-habitos-routing.module';
 import { HistorialHabitosPage } from './historial-habitos.page';
 import { ShareModule } from 'src/app/modulos/share/share.module';
+/*
 import { BotonReversaModule } from 'src/app/componentes/boton-reversa/boton-reversa.module';
+*/
+
 
 @NgModule({
   imports: [
@@ -14,7 +17,9 @@ import { BotonReversaModule } from 'src/app/componentes/boton-reversa/boton-reve
     IonicModule,
     HistorialHabitosPageRoutingModule,
     ShareModule,
+    /*
     BotonReversaModule
+    */
   ],
   declarations: [HistorialHabitosPage]
 })
