@@ -52,16 +52,24 @@ export class AppComponent {
     await alert.present();
   }
 
-
   async cerrarSesion() {
     // Elimina los datos de sesión almacenados en el Storage
     await this.storage.remove('nombre');
     await this.storage.remove('SessionID');
+
+    // Limpiar los campos
+    this.limpiarCampos();
 
     // cerrar sesión en Firebase
     await this.access.logout();
 
     // Redirigir al usuario a la página de login
     this.router.navigate(['/login']);
+  }
+
+  limpiarCampos() {
+    // Aquí puedes limpiar los campos que necesites
+    const campos = document.querySelectorAll('input');
+    campos.forEach(campo => campo.value = '');
   }
 }
