@@ -11,6 +11,9 @@ import { FirebaseLoginService } from 'src/app/servicios/firebase-login.service';
 })
 export class AppComponent {
   mostrarMenu: boolean = true;  // Variable para controlar la visibilidad del menú
+
+  nombreUsuario: string = '';
+  emailUsuario: string = '';
   
   constructor(public alerta:AlertController, private router:Router, private storage: Storage, private access:FirebaseLoginService) {
     this.router.events.subscribe((event: any) => {
@@ -57,6 +60,10 @@ export class AppComponent {
     // Elimina los datos de sesión almacenados en el Storage
     await this.storage.remove('nombre');
     await this.storage.remove('SessionID');
+
+    // Limpiar los campos de datos
+    this.nombreUsuario = '';
+    this.emailUsuario = '';
 
     // cerrar sesión en Firebase
     await this.access.logout();
