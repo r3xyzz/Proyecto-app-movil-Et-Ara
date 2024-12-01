@@ -1,17 +1,17 @@
 # Licencia de Uso Personalizada
 
-Este proyecto está bajo una licencia personalizada y puede ser utilizado, modificado y distribuido únicamente por Ethan, Araceli y Alexander, según los términos establecidos a continuación.
+Este proyecto está bajo una licencia personalizada y puede ser utilizado, modificado y distribuido únicamente por Ethan y Araceli, según los términos establecidos a continuación.
 
 ## Derechos otorgados
 
 1. **Uso personal y comercial:** 
-   - Ethan, Araceli y Alexander tienen derecho a usar este software tanto para fines personales como comerciales.
+   - Ethan y Araceli tienen derecho a usar este software tanto para fines personales como comerciales.
    
 2. **Modificación:**
    - Los usuarios autorizados pueden modificar el código según sus necesidades y contribuir al proyecto original mediante un flujo de trabajo controlado (pull requests).
 
 3. **Distribución restringida:**
-   - Solo los mencionados (Ethan, Araceli y Alexander) pueden distribuir copias del software modificado o no modificado, siempre citando la fuente original y notificando a los demás participantes.
+   - Solo los mencionados (Ethan y Araceli) pueden distribuir copias del software modificado o no modificado, siempre citando la fuente original y notificando a los demás participantes.
 
 4. **Propiedad compartida:**
    - Todos los contribuyentes tienen igual derecho sobre el código y sus derivaciones, siempre y cuando estas se mantengan dentro del grupo autorizado.
