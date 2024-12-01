@@ -2,6 +2,8 @@
 
 <ion-content [fullscreen]="true">
 
+  
+
   <!-- Popup con ion-card -->
   <ion-card *ngIf="popupVisible" class="popup-card">
     <ion-card-header>
@@ -50,6 +52,32 @@
         <ion-icon name="trash-outline"></ion-icon>
         <p>Cancelar</p>
       </ion-item>
+      
+
+      <ion-item button (click)="enviarNotificacion1Segundo(item)">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <p>Recordatorio 5 Seg</p>
+      </ion-item>
+
+      <ion-item button (click)="enviarNotificacion5Minutos(item)">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <p>Recordatorio 5 Min</p>
+      </ion-item>
+
+      <ion-item button (click)="enviarNotificacion15Minutos(item)">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <p>Recordatorio 15 Min</p>
+      </ion-item>
+
+      <ion-item button (click)="enviarNotificacion30Minutos(item)">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <p>Recordatorio 30 Min</p>
+      </ion-item>
+
+      <ion-item button (click)="enviarNotificacion1Hora(item)">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <p>Recordatorio 1 Hr</p>
+      </ion-item>      
 
 
     </ion-row>
