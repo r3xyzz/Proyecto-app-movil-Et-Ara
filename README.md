@@ -3,3 +3,4 @@ Proyecto de Gestion de Habitos ("Habitly")
 ### Integrantes ###
 "Ethan Silvestre"
 "Araceli Vega"
+"Alexander Vivanco"
