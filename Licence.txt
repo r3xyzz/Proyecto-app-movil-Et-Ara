@@ -29,4 +29,4 @@ Este proyecto está bajo una licencia personalizada y puede ser utilizado, modif
 
 ## Atribución
 
-Cualquier trabajo derivado o mención del proyecto debe incluir la atribución original: 
+Cualquier trabajo derivado o mención del proyecto debe incluir la atribución original.
